@@ -480,15 +480,15 @@ h2.section-title em { font-style: italic; }
   line-height: 1.3; margin-bottom: 0.6rem;
 }
 .product-desc { font-size: 0.78rem; font-weight: 300; line-height: 1.6; color: var(--ink-muted); margin-bottom: 0.8rem; }
-.product-footer { display: flex; align-items: center; justify-content: space-between; }
+
 .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; color: var(--ink); }
 .affil-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
   background: var(--ink); color: var(--cream);
-  border: none; padding: 0.55rem 1rem; border-radius: 100px;
-  font-size: 0.78rem; font-weight: 500; font-family: 'Outfit', sans-serif;
+  border: none; padding: 0.45rem 0.85rem; border-radius: 100px;
+  font-size: 0.73rem; font-weight: 500; font-family: 'Outfit', sans-serif;
   cursor: pointer; transition: background 0.2s, transform 0.15s;
-  text-decoration: none; white-space: nowrap;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
 }
 .affil-btn:hover { background: var(--terracotta); transform: translateY(-1px); }
 .affil-btn-ghost {
@@ -507,18 +507,18 @@ h2.section-title em { font-style: italic; }
   width: 6px; height: 6px; border-radius: 50%;
 }
 .affil-btn-tiktok {
-  display: inline-flex; align-items: center; gap: 0.5rem;
+  display: inline-flex; align-items: center; gap: 0.4rem;
   background: #010101; color: #fff;
-  border: none; padding: 0.55rem 1rem; border-radius: 100px;
-  font-size: 0.78rem; font-weight: 500; font-family: 'Outfit', sans-serif;
+  border: none; padding: 0.45rem 0.85rem; border-radius: 100px;
+  font-size: 0.73rem; font-weight: 500; font-family: 'Outfit', sans-serif;
   cursor: pointer; transition: background 0.2s, transform 0.15s;
-  text-decoration: none; white-space: nowrap;
+  text-decoration: none; white-space: nowrap; flex-shrink: 0;
 }
 .affil-btn-tiktok:hover { background: #fe2c55; transform: translateY(-1px); }
 .affil-btn-tiktok .tt-icon {
   width: 14px; height: 14px; flex-shrink: 0;
 }
-.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: nowrap; }
 .affil-disclaimer {
   background: var(--cream-mid); border: 1px solid var(--cream-dark);
   border-radius: var(--radius); padding: 1rem 1.5rem;
@@ -645,10 +645,10 @@ footer {
   <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
-      <div class="hero-eyebrow"><span class="eyebrow-line"></span>Marketer · Consultant · Builder</div>
+      <div class="hero-eyebrow"><span class="eyebrow-line"></span>Singapore · always curious</div>
       <h1 class="hero-h">Hello,<br>I'm <em>Chrislyn.</em></h1>
-      <p class="hero-sub">I decode consumer choices,<br>so your business wins.</p>
-      <p class="hero-desc">Marketer, insights-based consultant and tech enthusiast. I build models that predict the impact of consumer choices through econometrics, choice modelling and machine learning — then translate them into strategies that actually move the needle.</p>
+      <p class="hero-sub">Part data geek, part plant mum,<br>full-time curious person.</p>
+      <p class="hero-desc">I spend my days untangling why people buy what they buy, my weekends coaxing herbs out of fabric pots on my balcony, and my evenings poking at whatever tech rabbit hole caught my attention that week. This little corner of the internet is where all three collide.</p>
       <div class="hero-pills">
         <span class="pill pill-terra">Consumer Insights</span>
         <span class="pill pill-slate">Econometrics</span>
@@ -685,19 +685,20 @@ footer {
 
   <!-- ABOUT STRIP -->
   <div class="about-strip sr">
-    <div class="about-strip-label">About</div>
+    <div class="about-strip-label">A bit about me</div>
     <div class="about-strip-body">
-      <p class="about-strip-quote">I build models that <em>predict impact</em> of consumer choices through econometrics, choice modelling and machine learning.</p>
-      <p class="about-strip-text">Beyond analysis, I translate findings into actionable insights for you and your stakeholders — shaping revenue management, brand communication and innovation strategies. I've worked across Media & Tech, Jewelry, Food & Beverage, Home Care, Tobacco, Beauty, Personal Care and more.</p>
-      <p class="about-strip-text">Outside of data and strategy, I tend gardens, explore technology, and write about all of it.</p>
+      <p class="about-strip-quote">I'm Chrislyn — I love <em>figuring things out,</em> whether that's why a campaign flopped, why my chillies won't fruit, or why that new tool everyone's talking about actually works.</p>
+      <p class="about-strip-text">By day I work in marketing and consumer insights — the kind of work where you spend a lot of time asking "but why did they actually do that?" and then building models to find out. I genuinely love it. Numbers that tell human stories are endlessly fascinating to me.</p>
+      <p class="about-strip-text">By weekend I'm usually in the garden, covered in soil, probably listening to a podcast, definitely neglecting my inbox. I grow herbs, vegetables, and the occasional thing that has no business surviving a Singapore balcony. It keeps me humble.</p>
+      <p class="about-strip-text">I started writing here because I wanted one place where the gardening and the strategy and the tech obsessions could coexist without apology. If any of it resonates — or if you just want to talk about why your lemongrass isn't thriving — I'd love to hear from you.</p>
       <div class="about-tags">
-        <span class="about-tag">Revenue Management</span>
-        <span class="about-tag">Brand Strategy</span>
-        <span class="about-tag">Innovation</span>
-        <span class="about-tag">Econometrics</span>
-        <span class="about-tag">Choice Modelling</span>
-        <span class="about-tag">Machine Learning</span>
-        <span class="about-tag">Horticulture</span>
+        <span class="about-tag">Consumer Insights</span>
+        <span class="about-tag">Balcony Gardening</span>
+        <span class="about-tag">Tropical Plants</span>
+        <span class="about-tag">Data Storytelling</span>
+        <span class="about-tag">Useful Tech</span>
+        <span class="about-tag">Good Books</span>
+        <span class="about-tag">Singapore 🇸🇬</span>
       </div>
     </div>
   </div>
@@ -749,41 +750,13 @@ footer {
       <h2 class="section-title">Recent <em>articles</em></h2>
     </div>
     <div class="articles-grid">
-      <div class="article-card-featured" onclick="openArticle('art1')">
-        <div class="article-featured-img thumb-terra" style="font-size:5rem">📊</div>
+      <div class="article-card-featured" id="featured-main" onclick="ARTICLES[0]&&openArticle(ARTICLES[0].id)">
+        <div class="article-featured-img thumb-terra" style="font-size:5rem;color:var(--cream-dark)">✦</div>
         <div class="article-featured-body">
-          <div class="article-cat cat-biz">Business Consulting</div>
-          <div class="article-card-title">Why Consumer Choice Models Beat Gut Instinct Every Time</div>
-          <div class="article-excerpt">When a global FMCG brand came to me convinced their packaging redesign would lift sales by 30%, the data told a very different story...</div>
-          <div class="article-meta">May 2025 · 6 min read</div>
+          <div class="article-cat cat-biz" style="opacity:0.3">Loading...</div>
         </div>
       </div>
-      <div class="article-stack">
-        <div class="article-card-small" onclick="openArticle('art5')">
-          <div class="article-mini-thumb thumb-moss">🌿</div>
-          <div>
-            <div class="article-cat cat-garden">Gardening</div>
-            <div class="article-card-title-sm">Building a Productive Balcony Garden in Singapore</div>
-            <div class="article-meta">Apr 2025 · 4 min read</div>
-          </div>
-        </div>
-        <div class="article-card-small" onclick="openArticle('art9')">
-          <div class="article-mini-thumb thumb-slate">⚡</div>
-          <div>
-            <div class="article-cat cat-tech">Technology</div>
-            <div class="article-card-title-sm">What Marketers Get Wrong About AI-Powered Analytics</div>
-            <div class="article-meta">Mar 2025 · 5 min read</div>
-          </div>
-        </div>
-        <div class="article-card-small" onclick="openArticle('art2')">
-          <div class="article-mini-thumb thumb-terra">📊</div>
-          <div>
-            <div class="article-cat cat-biz">Business Consulting</div>
-            <div class="article-card-title-sm">Revenue Management in Uncertain Markets</div>
-            <div class="article-meta">Feb 2025 · 5 min read</div>
-          </div>
-        </div>
-      </div>
+      <div class="article-stack" id="featured-stack"></div>
     </div>
   </section>
 
@@ -845,7 +818,6 @@ footer {
       <button class="filter-btn" data-filter="garden" onclick="filterShop('garden',this)">🌿 Garden</button>
       <button class="filter-btn" data-filter="business" onclick="filterShop('business',this)">📊 Business</button>
       <button class="filter-btn" data-filter="tech" onclick="filterShop('tech',this)">⚡ Tech</button>
-      <button class="filter-btn" data-filter="tiktok" onclick="filterShop('tiktok',this)" style="border-color:#fe2c55;color:#fe2c55;">TikTok Shop</button>
     </div>
   </div>
   <div class="shop-main">
@@ -912,123 +884,43 @@ footer {
 
 <script>
 /* ─── DATA ─── */
-const ARTICLES = [
-  { id:'art1', cat:'business', catLabel:'Business Consulting', icon:'📊', thumbClass:'thumb-terra',
-    title:'Why Consumer Choice Models Beat Gut Instinct Every Time',
-    date:'May 2025', readTime:'6 min read',
-    body:`<p>When a global FMCG brand came to me convinced their packaging redesign would lift sales by 30%, the data told a very different story. Their marketing team had run focus groups, gathered enthusiastic feedback, and built a confident business case. But choice modelling — simulating how real shoppers trade off between competing options — revealed the redesign would likely cannibalise their premium SKU and yield a net share loss of 4%.</p>
-    <p>They launched anyway. Six months later, they were back asking why the numbers hadn't moved.</p>
-    <blockquote>The most dangerous thing in consumer research isn't bad data — it's confident people ignoring good data.</blockquote>
-    <h3>What choice modelling actually does</h3>
-    <p>Unlike surveys that ask "do you like this?", choice modelling forces respondents to make trade-offs under realistic constraints — budget, alternatives, shelf context. The output isn't preference scores; it's willingness-to-pay, price elasticity, and simulated market share under different scenarios.</p>
-    <p>When paired with econometric demand models, you get a powerful view of both stated preferences and revealed behaviour — what people say versus what they actually do with their wallets.</p>
-    <h3>Applying this to revenue management</h3>
-    <p>The real value emerges when you connect these models to pricing decisions. How much can you raise price before volume drops materially? What's the optimal architecture for a portfolio of three pack sizes? Which customer segment is most at risk of switching to a competitor if you discontinue the entry-level SKU?</p>
-    <p>These aren't hypothetical questions. They're the exact decisions that separate brands growing revenue from brands grinding through margin erosion — and the answers live in well-specified models, not in the gut.</p>`
-  },
-  { id:'art2', cat:'business', catLabel:'Business Consulting', icon:'📈', thumbClass:'thumb-terra',
-    title:'Revenue Management in Uncertain Markets',
-    date:'Feb 2025', readTime:'5 min read',
-    body:`<p>Uncertainty is the default condition for any business operating in the current environment. Inflation spikes, supply chain disruptions, shifting consumer sentiment — the list of destabilising forces is long and growing. Traditional revenue management frameworks were designed for more predictable worlds.</p>
-    <h3>Building resilient revenue models</h3>
-    <p>The brands I've seen navigate uncertainty best share a common trait: they treat their pricing and portfolio strategy as a live system, not a once-a-year planning exercise. They run scenario models regularly, hold cross-functional alignment sessions monthly, and have pre-approved playbooks for price responses under different trigger conditions.</p>
-    <p>This operational readiness is what separates reactive firefighting from proactive revenue management.</p>
-    <blockquote>Uncertainty doesn't remove the need for a plan — it raises the cost of not having one.</blockquote>
-    <h3>The role of real-time data</h3>
-    <p>Consumer panels, scan data, and digital engagement signals give modern revenue teams a level of visibility that simply didn't exist a decade ago. The challenge is now less about data availability and more about building the analytical capability to extract actionable signal from the noise.</p>
-    <p>Machine learning models that update on weekly sell-through data can dramatically sharpen promotional effectiveness predictions. The investment pays back quickly when even a 1-2% improvement in promo ROI translates to millions at scale.</p>`
-  },
-  { id:'art3', cat:'business', catLabel:'Business Consulting', icon:'🎯', thumbClass:'thumb-terra',
-    title:'Brand Communication That Drives Real Behaviour Change',
-    date:'Jan 2025', readTime:'4 min read',
-    body:`<p>Most brand communication is optimised for awareness or likeability — metrics that feel good to report and are straightforward to measure. Fewer brands measure whether their communication actually changes what consumers do at the point of purchase.</p>
-    <h3>Linking brand equity to revenue outcomes</h3>
-    <p>The brands I've worked with that do this well build explicit linkages between brand health tracking data and sales models. They can quantify, for example, how a 5-point improvement in "brand considered for next purchase" translates to an incremental volume lift under their current distribution footprint.</p>
-    <p>This requires technical investment — a proper data infrastructure, regular econometric model refreshes, and analysts who can bridge the worlds of brand research and commercial finance. But the payback is strategic clarity that's hard to argue with.</p>
-    <blockquote>The best brand campaigns I've seen aren't the most creative — they're the most strategically precise about which consumer behaviour they're trying to shift.</blockquote>`
-  },
-  { id:'art4', cat:'business', catLabel:'Business Consulting', icon:'🔍', thumbClass:'thumb-terra',
-    title:'Innovation Strategy: What the Data Actually Says About New Product Success',
-    date:'Dec 2024', readTime:'7 min read',
-    body:`<p>The failure rate for new product launches in FMCG is famously high — estimates range from 70 to 90% depending on how you define failure and which category you're looking at. The insight industry has spent decades trying to predict winners before launch, with mixed success.</p>
-    <h3>Lessons from a decade of innovation projects</h3>
-    <p>After working on innovation strategy across categories from beauty to beverages, a few patterns stand out consistently. The products most likely to succeed aren't necessarily the most novel — they're the ones that solve a real unmet need with a formulation or format the category hasn't seen before.</p>
-    <p>Concept testing at the right stage of development, with realistic purchase simulations rather than abstract ratings, dramatically improves the predictive validity of go/no-go decisions. The goal isn't to de-risk innovation entirely — it's to kill the right projects early and resource the ones with genuine potential.</p>`
-  },
-  { id:'art5', cat:'garden', catLabel:'Gardening', icon:'🌿', thumbClass:'thumb-moss',
-    title:'Building a Productive Balcony Garden in Singapore',
-    date:'Apr 2025', readTime:'4 min read',
-    body:`<p>Singapore's tropical climate is both a gift and a challenge for balcony gardeners. The year-round warmth means growing seasons don't exist in the traditional sense — you can plant almost anything, almost any time. But the intense sun, humidity, and frequent afternoon storms require a more thoughtful approach than temperate-climate gardening guides typically suggest.</p>
-    <h3>Start with the right containers</h3>
-    <p>For a balcony setup, weight is a real constraint. Fabric grow bags have become my default — they're lightweight, encourage healthy root development through air pruning, and drain extremely well, which matters enormously in a climate where overwatering is the most common mistake.</p>
-    <p>I run three sizes: small 3-gallon bags for herbs (Thai basil, laksa leaf, Vietnamese coriander), medium 7-gallon bags for chillies and compact tomato varieties, and two large 15-gallon bags where I'm currently growing eggplant and a dwarf papaya.</p>
-    <blockquote>The best garden is the one you can actually maintain consistently — not the most ambitious one you'll abandon in three months.</blockquote>
-    <h3>Soil and nutrition</h3>
-    <p>Commercial potting mixes sold locally are often too dense and water-retentive for tropical container growing. I blend my own: two parts good quality potting mix, one part perlite, and a generous handful of slow-release fertiliser. The perlite dramatically improves drainage and air circulation around roots.</p>`
-  },
-  { id:'art6', cat:'garden', catLabel:'Gardening', icon:'🌱', thumbClass:'thumb-moss',
-    title:'The Case for Growing Your Own Herbs in Southeast Asia',
-    date:'Mar 2025', readTime:'3 min read',
-    body:`<p>If you cook Southeast Asian food regularly — and in Singapore, how could you not — the case for growing your own herbs is almost embarrassingly obvious once you start. Fresh laksa leaf (daun kesom), lemongrass, kaffir lime leaves, and pandan are ingredients that transform dishes, cost almost nothing to grow, and are significantly better fresh than the versions sitting in supermarket plastic.</p>
-    <h3>The starter five</h3>
-    <p>If you're starting from scratch, I'd suggest five plants: Thai basil, lemongrass, kaffir lime, pandan, and chilli. Between these five, you can handle the aromatics for a staggering range of dishes — curries, laksa, tom yum, sambal, stir-fries, and desserts.</p>
-    <p>Lemongrass is particularly forgiving and grows aggressively in Singapore. One pot on a sunny balcony will produce more than most households can use. Divide it every few months to keep it productive.</p>`
-  },
-  { id:'art7', cat:'garden', catLabel:'Gardening', icon:'🪴', thumbClass:'thumb-moss',
-    title:'What Gardening Taught Me About Long-Term Strategy',
-    date:'Feb 2025', readTime:'5 min read',
-    body:`<p>I've been tending a garden seriously for about four years now, and I keep finding unexpected parallels between good gardening practice and sound business strategy. Both require patience with long feedback loops, the ability to distinguish between problems you can fix and conditions you have to accept, and a willingness to cut your losses on what isn't working.</p>
-    <h3>The compounding returns problem</h3>
-    <p>Soil health improves slowly and compoundingly. A single season of good compost additions and cover cropping doesn't transform your growing medium — but five seasons does, dramatically. The patience required to invest in something with deferred payoff is exactly the discipline that separates good long-term business builders from those optimising purely for the current quarter.</p>
-    <blockquote>Gardening rewards the patient. So does building anything worth having.</blockquote>
-    <h3>Knowing when to cut</h3>
-    <p>Every experienced gardener has learned the hard way that holding onto a struggling plant too long — hoping it will recover, reluctant to lose the investment of the seedling — costs more than it saves. The space, water, and attention that underperforming plant absorbs could be nourishing something productive.</p>`
-  },
-  { id:'art8', cat:'garden', catLabel:'Gardening', icon:'🌸', thumbClass:'thumb-moss',
-    title:'Composting in a HDB: A Practical Guide',
-    date:'Nov 2024', readTime:'4 min read',
-    body:`<p>Composting in a Singapore HDB flat sounds either heroic or impractical depending on who you ask. In practice, with the right system and a bit of routine, it's neither. I've been running a small composting operation on my balcony for two years and it's transformed both my food waste footprint and the quality of my garden soil.</p>
-    <h3>Bokashi, not hot compost</h3>
-    <p>The standard advice to "build a compost pile" doesn't translate to urban apartments. Hot composting requires volume and open space that most of us don't have. Bokashi fermentation is a much better fit: it works in a sealed bucket, handles all food scraps including meat and dairy, and produces a concentrated liquid fertiliser as a byproduct.</p>
-    <p>The process takes about two weeks of fermentation, followed by burying the pre-compost in soil where it breaks down completely within another week or two. It sounds fiddly but becomes completely routine.</p>`
-  },
-  { id:'art9', cat:'tech', catLabel:'Technology', icon:'⚡', thumbClass:'thumb-slate',
-    title:'What Marketers Get Wrong About AI-Powered Analytics',
-    date:'Mar 2025', readTime:'5 min read',
-    body:`<p>The marketing world has developed an almost religious enthusiasm for AI-powered analytics over the past two years. Platform vendors promise predictive insight at the push of a button; dashboards proliferate; and a new generation of tools claims to replace the analyst with an algorithm. Having worked at the intersection of marketing analytics and machine learning for over a decade, I have some complicated feelings about this.</p>
-    <h3>The quality of the question matters more than the sophistication of the model</h3>
-    <p>The most common mistake I see is treating AI as a source of questions rather than a tool for answering them. A model trained on historical data will tell you what predicted outcomes in the past — it won't tell you whether those patterns will hold in a market that has structurally shifted, or whether you're measuring the right outcome in the first place.</p>
-    <blockquote>AI amplifies the quality of your thinking. If your inputs are shallow, your outputs will be confidently shallow.</blockquote>
-    <h3>Where AI genuinely helps</h3>
-    <p>That said, the tools have become genuinely useful for specific analytical tasks: segmentation at scale, anomaly detection in large datasets, rapid iteration of demand forecasting models, and natural language interfaces for non-technical stakeholders to query data directly.</p>
-    <p>The wins come from deploying these capabilities against well-defined problems with good underlying data — not from hoping the AI will figure out what question to ask.</p>`
-  },
-  { id:'art10', cat:'tech', catLabel:'Technology', icon:'🔧', thumbClass:'thumb-slate',
-    title:'Building a Personal Knowledge Base That Actually Works',
-    date:'Feb 2025', readTime:'4 min read',
-    body:`<p>I've tried most of the popular knowledge management tools over the years — Notion, Obsidian, Roam, Bear, plain text files in various configurations. What I've landed on is less about the specific tool and more about a set of principles that I try to apply consistently regardless of where I'm capturing information.</p>
-    <h3>Capture before you curate</h3>
-    <p>The biggest failure mode in personal knowledge management is over-engineering the inbox. Spending twenty minutes deciding exactly how to tag and file a fleeting insight kills the habit of capturing at all. The practice that works for me: capture quickly with minimal structure, curate in a weekly review session where I process the week's captures into a more organised form.</p>
-    <p>This two-phase approach means no friction at the capture stage and a regular forcing function to actually think about what you've been collecting.</p>`
-  },
-  { id:'art11', cat:'tech', catLabel:'Technology', icon:'📱', thumbClass:'thumb-slate',
-    title:'The Tools I Actually Use (and Have Used for More Than a Year)',
-    date:'Jan 2025', readTime:'3 min read',
-    body:`<p>Tech recommendation articles are everywhere, and most of them are written by people who have used a tool for three weeks. This is my attempt to only write about things I've used consistently for at least twelve months — a more useful signal than initial enthusiasm.</p>
-    <h3>Analytics and data work</h3>
-    <p>Python remains my primary language for analytical work, with the pandas, scikit-learn, and statsmodels libraries doing the heavy lifting. I use VS Code with GitHub Copilot, which has genuinely improved my workflow — particularly for the more boilerplate elements of data cleaning and transformation code. For visualisation, I default to Matplotlib for static outputs and Plotly for anything interactive.</p>
-    <p>Observable notebooks have replaced Jupyter for exploratory work that I want to share — the publishing workflow is significantly better and the reactivity model is genuinely useful for interactive data exploration.</p>`
-  },
-  { id:'art12', cat:'tech', catLabel:'Technology', icon:'🤖', thumbClass:'thumb-slate',
-    title:'How I Integrated ML Into a Traditional Market Research Workflow',
-    date:'Dec 2024', readTime:'6 min read',
-    body:`<p>Market research has historically operated in a relatively slow cadence — design the study, field the survey, analyse the data, present the findings, three to four weeks later. Machine learning integration doesn't eliminate this process, but it creates opportunities to augment it with faster, more granular insight at points in the workflow where traditional methods have blind spots.</p>
-    <h3>Text analysis at scale</h3>
-    <p>The most immediately useful application has been NLP-based analysis of open-ended survey responses. Manually coding thousands of verbatims is time-consuming and introduces inconsistency. Transformer-based models fine-tuned on category-specific data can now produce thematic coding that is at least as good as human coders — faster and with full reproducibility.</p>
-    <p>The time savings are real, but the more valuable gain is the ability to analyse segments of the data (by region, demographic, brand used) that previously would have been too small to manually code within project timelines.</p>
-    <blockquote>The most valuable thing ML has done for my research work is make it possible to ask questions that were previously too expensive to answer.</blockquote>`
+/* ─── ARTICLES: loaded from /articles/*.json ───
+   Article data lives in individual JSON files in the /articles/ folder.
+   The site fetches articles-index.json to get the order, then loads each file.
+   To add a new article: drop a .json file in /articles/ and add its id to articles-index.json.
+*/
+let ARTICLES = [];
+
+async function loadArticles() {
+  try {
+    const indexRes = await fetch('./articles/articles-index.json');
+    const index = await indexRes.json();
+    const articleFiles = {
+      'art1':  'business-consumer-choice-models',
+      'art2':  'business-revenue-management',
+      'art3':  'business-brand-communication',
+      'art4':  'business-innovation-strategy',
+      'art5':  'garden-balcony-singapore',
+      'art6':  'garden-herbs-southeast-asia',
+      'art7':  'garden-long-term-strategy',
+      'art8':  'garden-composting-hdb',
+      'art9':  'tech-ai-analytics',
+      'art10': 'tech-knowledge-base',
+      'art11': 'tech-tools-i-use',
+      'art12': 'tech-ml-market-research',
+    };
+    const fetches = index.order.map(id =>
+      fetch(`./articles/${articleFiles[id]}.json`).then(r => r.json()).catch(() => null)
+    );
+    const results = await Promise.all(fetches);
+    ARTICLES = results.filter(Boolean);
+    renderArticles();
+    renderFeaturedArticles(index.featured);
+  } catch(e) {
+    console.warn('Could not load articles from /articles/ folder. Running in offline/local mode.');
+    renderArticles();
   }
-];
+}
 
 /*
   AFFILIATE PRODUCTS
@@ -1145,19 +1037,15 @@ function closeArticle() {
 function filterShop(cat, el) {
   document.querySelectorAll('#shop-filters .filter-btn').forEach(b => {
     b.classList.remove('active','active-moss','active-terra','active-slate');
-    b.style.background = ''; b.style.color = ''; b.style.borderColor = '';
   });
   if(el) {
     if(cat==='garden') el.classList.add('active-moss');
     else if(cat==='business') el.classList.add('active-terra');
     else if(cat==='tech') el.classList.add('active-slate');
-    else if(cat==='tiktok') { el.style.background='#fe2c55'; el.style.color='#fff'; el.style.borderColor='#fe2c55'; }
     else el.classList.add('active');
   }
   document.querySelectorAll('.product-card').forEach(card => {
-    if(cat === 'all') card.classList.remove('hidden');
-    else if(cat === 'tiktok') card.classList.toggle('hidden', !card.querySelector('.affil-btn-tiktok'));
-    else card.classList.toggle('hidden', card.dataset.cat !== cat);
+    card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
   });
 }
 
@@ -1230,8 +1118,42 @@ function initReveal() {
   document.querySelectorAll('.sr').forEach(el => observer.observe(el));
 }
 
+/* ─── RENDER FEATURED ARTICLES (HOME) ─── */
+function renderFeaturedArticles(featuredIds) {
+  if(!featuredIds || !ARTICLES.length) return;
+  const catMap = {garden:'cat-garden', business:'cat-biz', tech:'cat-tech'};
+  const thumbMap = {garden:'thumb-moss', business:'thumb-terra', tech:'thumb-slate'};
+  const bgMap = {garden:'var(--moss-light)', business:'var(--terracotta-light)', tech:'var(--slate-light)'};
+  const featured = featuredIds.map(id => ARTICLES.find(a => a.id===id)).filter(Boolean);
+  if(!featured.length) return;
+  const main = featured[0];
+  const rest = featured.slice(1, 4);
+  const mainEl = document.getElementById('featured-main');
+  const stackEl = document.getElementById('featured-stack');
+  if(mainEl) {
+    mainEl.onclick = () => openArticle(main.id);
+    mainEl.innerHTML = `
+    <div class="article-featured-img ${thumbMap[main.cat]}">${main.icon}</div>
+    <div class="article-featured-body">
+      <div class="article-cat ${catMap[main.cat]}">${main.catLabel}</div>
+      <div class="article-card-title">${main.title}</div>
+      <div class="article-excerpt">${main.body.replace(/<[^>]*>/g,'').substring(0,160)}...</div>
+      <div class="article-meta">${main.date} · ${main.readTime}</div>
+    </div>`;
+  }
+  if(stackEl) stackEl.innerHTML = rest.map(art => `
+    <div class="article-card-small" onclick="openArticle('${art.id}')">
+      <div class="article-mini-thumb ${thumbMap[art.cat]}">${art.icon}</div>
+      <div>
+        <div class="article-cat ${catMap[art.cat]}">${art.catLabel}</div>
+        <div class="article-card-title-sm">${art.title}</div>
+        <div class="article-meta">${art.date} · ${art.readTime}</div>
+      </div>
+    </div>`).join('');
+}
+
 /* ─── INIT ─── */
-renderArticles();
+loadArticles();
 renderProducts();
 initReveal();
 </script>
