@@ -1,125 +1,58 @@
-# chrislyntang.com — Personal Website
+# Articles
 
-A fully responsive personal branding website for Chrislyn Tang. Built as a single `index.html` file — no build tools, no dependencies, deploys anywhere.
+Each article is a `.json` file in this folder. The website loads them automatically on page load.
 
-## Features
+## How to add a new article
 
-- **Home** — Hero section, about strip, topic cards, featured articles
-- **Articles** — Filterable article feed (Gardening / Business Consulting / Technology) with full article reader
-- **Shop** — Product catalogue with live cart, drawer checkout, and filter by category
-- **Responsive** — Mobile-first, works on all screen sizes
-- **No dependencies** — Pure HTML, CSS, JavaScript. No npm, no bundler.
+Create a new `.json` file with this structure:
 
----
-
-## How to Deploy (GitHub Pages)
-
-1. Push `index.html` to your repo's `main` branch (root directory or `/docs`)
-2. Go to **Settings → Pages**
-3. Source: `Deploy from a branch` → `main` → `/ (root)`
-4. Your site will be live at `https://chrislyntang.github.io/<repo-name>`
-
----
-
-## How to Add a New Article
-
-Open `index.html` and find the `ARTICLES` array near the bottom inside `<script>`. Add a new object:
-
-```javascript
+```json
 {
-  id: 'art13',               // unique ID
-  cat: 'garden',             // 'garden' | 'business' | 'tech'
-  catLabel: 'Gardening',     // display label
-  icon: '🌾',                // emoji for thumbnail
-  thumbClass: 'thumb-moss',  // 'thumb-moss' | 'thumb-terra' | 'thumb-slate'
-  title: 'Your Article Title',
-  date: 'Jun 2025',
-  readTime: '4 min read',
-  body: `
-    <p>Your first paragraph here...</p>
-    <h3>A subheading</h3>
-    <p>More content...</p>
-    <blockquote>A memorable quote.</blockquote>
-  `
+  "id": "art13",
+  "cat": "garden",
+  "catLabel": "Gardening",
+  "icon": "🌾",
+  "thumbClass": "thumb-moss",
+  "title": "Your Article Title Here",
+  "date": "Jun 2025",
+  "readTime": "4 min read",
+  "body": "<p>Your first paragraph.</p><h3>A subheading</h3><p>More content.</p><blockquote>A memorable quote.</blockquote>"
 }
 ```
 
-That's it — the article will appear in the feed and be filterable immediately.
+### Fields
 
----
-
-## How to Add a New Shop Product
-
-Find the `PRODUCTS` array and add:
-
-```javascript
-{
-  id: 'p13',
-  cat: 'garden',             // 'garden' | 'business' | 'tech'
-  catLabel: 'Garden',
-  name: 'Product Name',
-  icon: '🌻',
-  imgBg: '#e8f0e8',          // background colour for product image area
-  price: 19.90,
-  desc: 'Short product description.',
-  badge: 'New'               // or null for no badge
-}
-```
-
----
-
-## Connecting a Real Checkout
-
-The cart is fully functional (add, remove, adjust quantities). To connect a real payment processor:
-
-### Option A — Stripe
-Replace the `checkout()` function with a call to your Stripe Checkout session endpoint.
-
-### Option B — Shopify Buy Button
-Replace the products array with Shopify's storefront API and use their Buy SDK.
-
-### Option C — Gumroad
-Link each product's "Add to cart" button directly to a Gumroad product URL.
-
----
-
-## Customising Content
-
-| What | Where in the file |
-|---|---|
-| Your name / tagline | `<h1 class="hero-h">` and `<p class="hero-sub">` |
-| Your photo | Replace the `<img src="...">` in the hero section |
-| About text | `.about-strip-text` paragraphs |
-| LinkedIn URL | `href="https://www.linkedin.com/in/chrislyntang/"` |
-| Footer tagline | `.footer-tagline` |
-| Colour scheme | CSS `:root` variables at the top of `<style>` |
-
----
-
-## Colour Variables
-
-| Variable | Default | Usage |
+| Field | Options | Description |
 |---|---|---|
-| `--terracotta` | `#b5543a` | Accents, CTAs, business category |
-| `--moss` | `#3d5a3e` | Gardening category |
-| `--slate` | `#2e3f52` | Technology category |
-| `--cream` | `#faf8f3` | Page background |
-| `--ink` | `#1a1a18` | Primary text + dark sections |
+| `id` | any unique string | e.g. `art13`, used for linking |
+| `cat` | `garden` / `business` / `tech` | controls which filter tab it appears under |
+| `catLabel` | any string | display label e.g. `Gardening` |
+| `icon` | any emoji | shown as the article thumbnail |
+| `thumbClass` | `thumb-moss` / `thumb-terra` / `thumb-slate` | background colour of thumbnail |
+| `title` | string | article headline |
+| `date` | string | e.g. `Jun 2025` |
+| `readTime` | string | e.g. `5 min read` |
+| `body` | HTML string | full article content — use `<p>`, `<h3>`, `<blockquote>` |
+
+### Body HTML tags supported
+- `<p>` — paragraph
+- `<h3>` — subheading
+- `<blockquote>` — pull quote (styled with terracotta left border)
+
+### Naming convention
+`{category}-{short-slug}.json` — e.g. `garden-composting-hdb.json`
+
+Articles are sorted by the order they appear in `articles-index.json`. Update that file when you add a new article.
 
 ---
 
-## File Structure
+## articles-index.json
 
+This file controls the **order** articles appear on the site and which ones show in the "Featured" section on the home page.
+
+```json
+{
+  "featured": ["art1", "art5", "art9", "art2"],
+  "order": ["art1", "art2", "art3", "art4", "art5", "art6", "art7", "art8", "art9", "art10", "art11", "art12"]
+}
 ```
-/
-└── index.html    ← entire website (HTML + CSS + JS)
-└── README.md
-```
-
-If you want to split into multiple files later, the CSS can be extracted to `style.css` and the script to `main.js` — just add `<link rel="stylesheet" href="style.css">` and `<script src="main.js"></script>` in the appropriate places.
-
----
-
-## License
-
-© Chrislyn Tang. All rights reserved.

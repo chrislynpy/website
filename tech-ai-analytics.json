@@ -1,0 +1,11 @@
+{
+  "id": "art9",
+  "cat": "tech",
+  "catLabel": "Technology",
+  "icon": "⚡",
+  "thumbClass": "thumb-slate",
+  "title": "What Marketers Get Wrong About AI-Powered Analytics",
+  "date": "Mar 2025",
+  "readTime": "5 min read",
+  "body": "<p>The marketing world has developed an almost religious enthusiasm for AI-powered analytics over the past two years. Platform vendors promise predictive insight at the push of a button; dashboards proliferate; and a new generation of tools claims to replace the analyst with an algorithm. Having worked at the intersection of marketing analytics and machine learning for over a decade, I have some complicated feelings about this.</p><h3>The quality of the question matters more than the sophistication of the model</h3><p>The most common mistake I see is treating AI as a source of questions rather than a tool for answering them. A model trained on historical data will tell you what predicted outcomes in the past — it won't tell you whether those patterns will hold in a market that has structurally shifted, or whether you're measuring the right outcome in the first place.</p><blockquote>AI amplifies the quality of your thinking. If your inputs are shallow, your outputs will be confidently shallow.</blockquote><h3>Where AI genuinely helps</h3><p>That said, the tools have become genuinely useful for specific analytical tasks: segmentation at scale, anomaly detection in large datasets, rapid iteration of demand forecasting models, and natural language interfaces for non-technical stakeholders to query data directly.</p><p>The wins come from deploying these capabilities against well-defined problems with good underlying data — not from hoping the AI will figure out what question to ask.</p>"
+}
