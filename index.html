@@ -91,22 +91,7 @@ nav {
   transition: background 0.2s, transform 0.15s;
 }
 .nav-shop-btn:hover { background: var(--terracotta); transform: translateY(-1px); }
-.nav-cart-btn {
-  background: none; border: 1px solid var(--cream-dark);
-  width: 38px; height: 38px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; position: relative; transition: border-color 0.2s;
-}
-.nav-cart-btn:hover { border-color: var(--ink); }
-.cart-count {
-  position: absolute; top: -4px; right: -4px;
-  background: var(--terracotta); color: #fff;
-  width: 18px; height: 18px; border-radius: 50%;
-  font-size: 0.65rem; font-weight: 600;
-  display: flex; align-items: center; justify-content: center;
-  display: none;
-}
-.cart-count.show { display: flex; }
+
 
 /* hamburger */
 .hamburger {
@@ -497,73 +482,51 @@ h2.section-title em { font-style: italic; }
 .product-desc { font-size: 0.78rem; font-weight: 300; line-height: 1.6; color: var(--ink-muted); margin-bottom: 0.8rem; }
 .product-footer { display: flex; align-items: center; justify-content: space-between; }
 .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 500; color: var(--ink); }
-.add-cart-btn {
+.affil-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
   background: var(--ink); color: var(--cream);
-  border: none; width: 34px; height: 34px;
-  border-radius: 50%; font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s, transform 0.15s;
+  border: none; padding: 0.55rem 1rem; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 500; font-family: 'Outfit', sans-serif;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  text-decoration: none; white-space: nowrap;
 }
-.add-cart-btn:hover { background: var(--terracotta); transform: scale(1.08); }
-
-/* CART DRAWER */
-.cart-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
-  z-index: 300; display: none; opacity: 0;
-  transition: opacity 0.3s;
+.affil-btn:hover { background: var(--terracotta); transform: translateY(-1px); }
+.affil-btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: none; color: var(--ink);
+  border: 1px solid var(--cream-dark); padding: 0.55rem 1rem; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 400; font-family: 'Outfit', sans-serif;
+  cursor: pointer; transition: all 0.2s; text-decoration: none; white-space: nowrap;
 }
-.cart-overlay.open { display: block; opacity: 1; }
-.cart-drawer {
-  position: fixed; top: 0; right: 0; bottom: 0;
-  width: 420px; max-width: 100vw;
-  background: var(--cream); z-index: 301;
-  transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-  display: flex; flex-direction: column;
-  box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+.affil-btn-ghost:hover { border-color: var(--ink); }
+.retailer-tag {
+  font-size: 0.7rem; color: var(--ink-muted);
+  display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.6rem;
 }
-.cart-drawer.open { transform: translateX(0); }
-.cart-header {
-  padding: 1.5rem 1.8rem;
-  border-bottom: 1px solid var(--cream-dark);
-  display: flex; align-items: center; justify-content: space-between;
+.retailer-dot {
+  width: 6px; height: 6px; border-radius: 50%;
 }
-.cart-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; }
-.cart-close { background: none; border: none; font-size: 1.4rem; color: var(--ink-muted); transition: color 0.2s; }
-.cart-close:hover { color: var(--ink); }
-.cart-items { flex: 1; overflow-y: auto; padding: 1.2rem 1.8rem; }
-.cart-empty { text-align: center; padding: 4rem 2rem; color: var(--ink-muted); font-size: 0.9rem; }
-.cart-item {
-  display: flex; gap: 1rem; align-items: flex-start;
-  padding: 1rem 0; border-bottom: 1px solid var(--cream-dark);
+.affil-btn-tiktok {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #010101; color: #fff;
+  border: none; padding: 0.55rem 1rem; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 500; font-family: 'Outfit', sans-serif;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  text-decoration: none; white-space: nowrap;
 }
-.cart-item:last-child { border-bottom: none; }
-.cart-item-img {
-  width: 64px; height: 64px; border-radius: var(--radius);
-  background: var(--cream-mid); display: flex; align-items: center;
-  justify-content: center; font-size: 1.8rem; flex-shrink: 0;
+.affil-btn-tiktok:hover { background: #fe2c55; transform: translateY(-1px); }
+.affil-btn-tiktok .tt-icon {
+  width: 14px; height: 14px; flex-shrink: 0;
 }
-.cart-item-info { flex: 1; }
-.cart-item-name { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.2rem; }
-.cart-item-price { font-size: 0.85rem; color: var(--ink-muted); }
-.cart-item-qty {
-  display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;
+.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; flex-wrap: wrap; }
+.affil-disclaimer {
+  background: var(--cream-mid); border: 1px solid var(--cream-dark);
+  border-radius: var(--radius); padding: 1rem 1.5rem;
+  font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6;
+  margin-bottom: 3rem;
+  display: flex; gap: 0.8rem; align-items: flex-start;
 }
-.qty-btn { background: var(--cream-mid); border: none; width: 26px; height: 26px; border-radius: 6px; font-size: 0.9rem; transition: background 0.2s; }
-.qty-btn:hover { background: var(--cream-dark); }
-.qty-num { font-size: 0.85rem; font-weight: 500; min-width: 20px; text-align: center; }
-.cart-remove { background: none; border: none; color: var(--ink-muted); font-size: 1rem; transition: color 0.2s; margin-left: auto; }
-.cart-remove:hover { color: var(--terracotta); }
-.cart-footer { padding: 1.5rem 1.8rem; border-top: 1px solid var(--cream-dark); }
-.cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-.cart-total-label { font-size: 0.9rem; color: var(--ink-soft); }
-.cart-total-price { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; }
-.checkout-btn {
-  width: 100%; background: var(--ink); color: var(--cream);
-  border: none; padding: 1rem; border-radius: 100px;
-  font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 500;
-  transition: background 0.2s;
-}
-.checkout-btn:hover { background: var(--terracotta); }
+.affil-disclaimer-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
 
 /* ─── FOOTER ─── */
 footer {
@@ -655,7 +618,7 @@ footer {
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a class="nav-logo" href="#" onclick="showPage('home');return false;"></a>
+  <a class="nav-logo" href="#" onclick="showPage('home');return false;">Chrislyn <em>Tang</em></a>
   <ul class="nav-center" id="nav-desktop">
     <li><button onclick="showPage('home')" id="nav-home" class="active">Home</button></li>
     <li><button onclick="showPage('articles')" id="nav-articles">Articles</button></li>
@@ -663,10 +626,6 @@ footer {
   </ul>
   <div class="nav-right">
     <button class="nav-shop-btn" onclick="showPage('shop')">Shop →</button>
-    <button class="nav-cart-btn" onclick="toggleCart()" id="cart-btn" title="View cart">
-      🛒
-      <span class="cart-count" id="cart-count">0</span>
-    </button>
     <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -886,32 +845,21 @@ footer {
       <button class="filter-btn" data-filter="garden" onclick="filterShop('garden',this)">🌿 Garden</button>
       <button class="filter-btn" data-filter="business" onclick="filterShop('business',this)">📊 Business</button>
       <button class="filter-btn" data-filter="tech" onclick="filterShop('tech',this)">⚡ Tech</button>
+      <button class="filter-btn" data-filter="tiktok" onclick="filterShop('tiktok',this)" style="border-color:#fe2c55;color:#fe2c55;">TikTok Shop</button>
     </div>
   </div>
   <div class="shop-main">
+    <div class="affil-disclaimer">
+      <span class="affil-disclaimer-icon">ℹ️</span>
+      <span>This page contains affiliate links. If you purchase through these links, I may earn a small commission at no extra cost to you. I only recommend products I personally use and genuinely believe in.</span>
+    </div>
     <div class="products-grid" id="products-grid"></div>
   </div>
 </div><!-- /shop page -->
 
 
-<!-- CART DRAWER -->
-<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-<div class="cart-drawer" id="cart-drawer">
-  <div class="cart-header">
-    <h3>Your Cart</h3>
-    <button class="cart-close" onclick="toggleCart()">✕</button>
-  </div>
-  <div class="cart-items" id="cart-items">
-    <div class="cart-empty">Your cart is empty</div>
-  </div>
-  <div class="cart-footer" id="cart-footer" style="display:none">
-    <div class="cart-total">
-      <span class="cart-total-label">Total</span>
-      <span class="cart-total-price" id="cart-total">$0.00</span>
-    </div>
-    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
-  </div>
-</div>
+
+
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -1082,24 +1030,52 @@ const ARTICLES = [
   }
 ];
 
+/*
+  AFFILIATE PRODUCTS
+  ─────────────────────────────────────────────────────
+  Each product has:
+    affiliateUrl  → your affiliate link (Amazon, Lazada, Shopee, TikTok Shop, etc.)
+    retailer      → display name shown on the button
+    retailerColor → dot colour next to retailer name
+    isTikTok      → set true to render the black TikTok Shop button instead
+    price         → display price (optional, set to null to hide)
+
+  HOW TO GET YOUR TIKTOK SHOP AFFILIATE LINKS:
+  ─────────────────────────────────────────────
+  1. Go to TikTok Creator Center → TikTok Shop → Affiliate
+  2. Apply (need 1,000+ followers in SG)
+  3. Browse the Product Marketplace, pick a product
+  4. Tap "Share" → "Copy affiliate link"
+     Format: https://shop.tiktok.com/view/product/PRODUCT_ID?affiliate_id=YOUR_ID
+  5. Paste that URL into affiliateUrl below and set isTikTok: true
+
+  HOW TO GET OTHER AFFILIATE LINKS:
+  • Amazon SG:  associates.amazon.sg  → tag=YOURTAG-22 in the URL
+  • Lazada SG:  lazada.sg affiliate portal
+  • Shopee SG:  shopee.sg affiliate program
+  • Notion:     notion.so/affiliate
+*/
 const PRODUCTS = [
-  { id:'p1', cat:'garden', catLabel:'Garden', name:'Fabric Grow Bag Set (5-pack)', icon:'🪴', imgBg:'#e8f0e8', price:28.90, desc:'7-gallon breathable fabric bags, ideal for tropical container growing.', badge:null },
-  { id:'p2', cat:'garden', catLabel:'Garden', name:'Premium Potting Mix Blend', icon:'🌱', imgBg:'#e0ece0', price:18.50, desc:'Custom-blended mix with perlite, optimised for Singapore\'s humidity.', badge:'Best Seller' },
-  { id:'p3', cat:'garden', catLabel:'Garden', name:'Herb Starter Seed Kit', icon:'🌿', imgBg:'#d8e8d8', price:22.00, desc:'6 Southeast Asian herb varieties: Thai basil, laksa leaf, pandan & more.', badge:null },
-  { id:'p4', cat:'garden', catLabel:'Garden', name:'Bokashi Composting Kit', icon:'♻️', imgBg:'#e4ece0', price:45.00, desc:'Complete starter kit for apartment-friendly composting. Includes 2 buckets + bran.', badge:null },
-  { id:'p5', cat:'business', catLabel:'Business', name:'Consumer Insights Template Pack', icon:'📊', imgBg:'#f5ebe7', price:39.00, desc:'Excel & Google Sheets templates for choice modelling and consumer segmentation.', badge:'New' },
-  { id:'p6', cat:'business', catLabel:'Business', name:'"Decode Consumer Choices" E-Book', icon:'📖', imgBg:'#f2e4de', price:24.00, desc:'A practical guide to econometrics and choice modelling for marketers.', badge:'Best Seller' },
-  { id:'p7', cat:'business', catLabel:'Business', name:'Revenue Strategy Workbook', icon:'📈', imgBg:'#f0e0da', price:32.00, desc:'Step-by-step workbook for building resilient revenue management frameworks.', badge:null },
-  { id:'p8', cat:'business', catLabel:'Business', name:'90-Minute Strategy Session', icon:'🎯', imgBg:'#eee0dc', price:220.00, desc:'1-on-1 consulting call with Chrislyn. Revenue, brand or innovation focus.', badge:null },
-  { id:'p9', cat:'tech', catLabel:'Tech', name:'Python for Market Research', icon:'🐍', imgBg:'#e8edf3', price:29.00, desc:'Course-style PDF guide: pandas, statsmodels & NLP for insights professionals.', badge:null },
-  { id:'p10', cat:'tech', catLabel:'Tech', name:'Analytics Dashboard Template', icon:'📱', imgBg:'#dde5f0', price:48.00, desc:'Ready-to-deploy Observable notebook dashboard for marketing analytics.', badge:'New' },
-  { id:'p11', cat:'tech', catLabel:'Tech', name:'ML Segmentation Starter Kit', icon:'🤖', imgBg:'#e0e8f2', price:55.00, desc:'Python notebooks + documentation for building your first ML segmentation model.', badge:null },
-  { id:'p12', cat:'tech', catLabel:'Tech', name:'Data Stack Audit Checklist', icon:'🔧', imgBg:'#e4eaf2', price:12.00, desc:'50-point audit checklist for evaluating and upgrading your analytics infrastructure.', badge:null },
+  { id:'p1', cat:'garden', catLabel:'Garden', name:'Fabric Grow Bags — 7 Gallon (5-pack)', icon:'🪴', imgBg:'#e8f0e8', price:'S$28–35', desc:'Breathable fabric bags for air-pruning roots. My go-to for balcony container growing in Singapore\'s heat.', badge:null, affiliateUrl:'https://www.amazon.sg/s?k=fabric+grow+bags+7+gallon&tag=YOURTAG-22', retailer:'Amazon SG', retailerColor:'#FF9900', isTikTok:false },
+  { id:'p1t', cat:'garden', catLabel:'Garden', name:'Fabric Grow Bags Bundle (TikTok Shop)', icon:'🪴', imgBg:'#ffe8e8', price:'S$22–28', desc:'Same grow bags — often cheaper on TikTok Shop with free shipping promos. Earn commission on every sale.', badge:'TikTok Deal', affiliateUrl:'https://shop.tiktok.com/view/product/PRODUCT_ID?affiliate_id=YOUR_TIKTOK_ID', retailer:'TikTok Shop', retailerColor:'#fe2c55', isTikTok:true },
+  { id:'p2', cat:'garden', catLabel:'Garden', name:'Perlite — Premium Grade (5L)', icon:'🌱', imgBg:'#e0ece0', price:'S$15–20', desc:'Essential for improving drainage in tropical container mixes. I blend 1 part perlite with 2 parts potting mix.', badge:'My Pick', affiliateUrl:'https://www.lazada.sg/tag/perlite/?q=perlite+5L&spm=YOURTAG', retailer:'Lazada SG', retailerColor:'#F57224', isTikTok:false },
+  { id:'p3', cat:'garden', catLabel:'Garden', name:'SE Asian Herb Seed Collection', icon:'🌿', imgBg:'#d8e8d8', price:'S$18–25', desc:'Thai basil, laksa leaf, lemongrass, pandan & kaffir lime. Everything for SE Asian cooking from your balcony.', badge:null, affiliateUrl:'https://shopee.sg/search?keyword=herb+seeds+singapore&af_id=YOURID', retailer:'Shopee SG', retailerColor:'#EE4D2D', isTikTok:false },
+  { id:'p3t', cat:'garden', catLabel:'Garden', name:'Tropical Herb Seeds Bundle (TikTok Shop)', icon:'🌱', imgBg:'#ffe8e8', price:'S$12–18', desc:'Curated tropical herb bundle — often includes bonus peat pellets or starter trays. High-converting with video demos.', badge:'TikTok Deal', affiliateUrl:'https://shop.tiktok.com/view/product/PRODUCT_ID?affiliate_id=YOUR_TIKTOK_ID', retailer:'TikTok Shop', retailerColor:'#fe2c55', isTikTok:true },
+  { id:'p4', cat:'garden', catLabel:'Garden', name:'Bokashi Composting Starter Kit', icon:'♻️', imgBg:'#e4ece0', price:'S$45–60', desc:'Sealed fermentation that handles all food waste including meat and dairy. Perfect for HDB — no smell, no flies.', badge:null, affiliateUrl:'https://www.amazon.sg/s?k=bokashi+composting+kit&tag=YOURTAG-22', retailer:'Amazon SG', retailerColor:'#FF9900', isTikTok:false },
+  { id:'p5', cat:'business', catLabel:'Business', name:'Thinking Fast and Slow — Kahneman', icon:'📖', imgBg:'#f5ebe7', price:'S$22–28', desc:'The foundational text for understanding how consumers make decisions. Essential before building any choice model.', badge:'Must Read', affiliateUrl:'https://www.kinokuniya.com.sg/search?stype=01&qs=thinking+fast+and+slow', retailer:'Kinokuniya', retailerColor:'#1a1a18', isTikTok:false },
+  { id:'p6', cat:'business', catLabel:'Business', name:'Predictably Irrational — Ariely', icon:'🧠', imgBg:'#f2e4de', price:'S$20–25', desc:'How hidden forces shape our decisions. Changed how I design consumer research frameworks entirely.', badge:'My Fav', affiliateUrl:'https://www.amazon.sg/s?k=predictably+irrational+ariely&tag=YOURTAG-22', retailer:'Amazon SG', retailerColor:'#FF9900', isTikTok:false },
+  { id:'p6t', cat:'business', catLabel:'Business', name:'Minimal Desk Accessories Set (TikTok Shop)', icon:'🖊️', imgBg:'#ffe8e8', price:'S$18–30', desc:'Well-designed desk accessories that make you want to sit down and work. Great gift, great commissions.', badge:'TikTok Deal', affiliateUrl:'https://shop.tiktok.com/view/product/PRODUCT_ID?affiliate_id=YOUR_TIKTOK_ID', retailer:'TikTok Shop', retailerColor:'#fe2c55', isTikTok:true },
+  { id:'p7', cat:'business', catLabel:'Business', name:'Good Strategy / Bad Strategy — Rumelt', icon:'📊', imgBg:'#f0e0da', price:'S$25–32', desc:'The clearest book on what strategy actually is — and why most "strategies" are wishful thinking in slides.', badge:null, affiliateUrl:'https://www.kinokuniya.com.sg/search?stype=01&qs=good+strategy+bad+strategy', retailer:'Kinokuniya', retailerColor:'#1a1a18', isTikTok:false },
+  { id:'p8', cat:'business', catLabel:'Business', name:'Notion — Team Workspace', icon:'🗂️', imgBg:'#eee0dc', price:'Free / ~S$14/mo', desc:'My project and strategy management tool. The templates for client projects alone are worth it.', badge:null, affiliateUrl:'https://affiliate.notion.so/YOURID', retailer:'Notion', retailerColor:'#1a1a18', isTikTok:false },
+  { id:'p9', cat:'tech', catLabel:'Tech', name:'Python Crash Course — Matthes', icon:'🐍', imgBg:'#e8edf3', price:'S$38–45', desc:'The book I recommend to every marketer learning Python for data analysis. Practical, no CS background needed.', badge:'Best Starter', affiliateUrl:'https://www.amazon.sg/s?k=python+crash+course+matthes&tag=YOURTAG-22', retailer:'Amazon SG', retailerColor:'#FF9900', isTikTok:false },
+  { id:'p9t', cat:'tech', catLabel:'Tech', name:'Wireless Mechanical Keyboard (TikTok Shop)', icon:'⌨️', imgBg:'#ffe8e8', price:'S$45–80', desc:'Compact wireless mechanical keyboards — massive range on TikTok Shop. Filter by switch type to find your match.', badge:'TikTok Deal', affiliateUrl:'https://shop.tiktok.com/view/product/PRODUCT_ID?affiliate_id=YOUR_TIKTOK_ID', retailer:'TikTok Shop', retailerColor:'#fe2c55', isTikTok:true },
+  { id:'p10', cat:'tech', catLabel:'Tech', name:'iPad Pro + Apple Pencil (M4)', icon:'📱', imgBg:'#dde5f0', price:'From S$1,499', desc:'My favourite setup for sketching frameworks and annotating reports on the go. The M4 chip handles everything.', badge:null, affiliateUrl:'https://www.apple.com/sg/shop/buy-ipad/ipad-pro', retailer:'Apple SG', retailerColor:'#555555', isTikTok:false },
+  { id:'p11', cat:'tech', catLabel:'Tech', name:'Storytelling with Data — Knaflic', icon:'📈', imgBg:'#e0e8f2', price:'S$38–45', desc:'How to turn analytical outputs into visuals for non-technical stakeholders. Most practical book in my library.', badge:'My Pick', affiliateUrl:'https://www.kinokuniya.com.sg/search?stype=01&qs=storytelling+with+data', retailer:'Kinokuniya', retailerColor:'#1a1a18', isTikTok:false },
+  { id:'p12', cat:'tech', catLabel:'Tech', name:'Logitech MX Master 3S Mouse', icon:'🖱️', imgBg:'#e4eaf2', price:'S$119–139', desc:'The best mouse for long analytical sessions. MagSpeed scroll wheel is a joy through large datasets.', badge:null, affiliateUrl:'https://www.amazon.sg/s?k=logitech+mx+master+3s&tag=YOURTAG-22', retailer:'Amazon SG', retailerColor:'#FF9900', isTikTok:false },
+  { id:'p12t', cat:'tech', catLabel:'Tech', name:'Blue Light Glasses (TikTok Shop)', icon:'👓', imgBg:'#ffe8e8', price:'S$15–35', desc:'Reduce eye strain during long screen sessions. Wildly popular on TikTok Shop — high conversion from video demos.', badge:'TikTok Deal', affiliateUrl:'https://shop.tiktok.com/view/product/PRODUCT_ID?affiliate_id=YOUR_TIKTOK_ID', retailer:'TikTok Shop', retailerColor:'#fe2c55', isTikTok:true },
 ];
 
 /* ─── STATE ─── */
-let cart = [];
-let cartOpen = false;
 let menuOpen = false;
 let currentPage = 'home';
 let currentFilter = 'all';
@@ -1169,79 +1145,20 @@ function closeArticle() {
 function filterShop(cat, el) {
   document.querySelectorAll('#shop-filters .filter-btn').forEach(b => {
     b.classList.remove('active','active-moss','active-terra','active-slate');
+    b.style.background = ''; b.style.color = ''; b.style.borderColor = '';
   });
   if(el) {
     if(cat==='garden') el.classList.add('active-moss');
     else if(cat==='business') el.classList.add('active-terra');
     else if(cat==='tech') el.classList.add('active-slate');
+    else if(cat==='tiktok') { el.style.background='#fe2c55'; el.style.color='#fff'; el.style.borderColor='#fe2c55'; }
     else el.classList.add('active');
   }
   document.querySelectorAll('.product-card').forEach(card => {
-    card.classList.toggle('hidden', cat !== 'all' && card.dataset.cat !== cat);
+    if(cat === 'all') card.classList.remove('hidden');
+    else if(cat === 'tiktok') card.classList.toggle('hidden', !card.querySelector('.affil-btn-tiktok'));
+    else card.classList.toggle('hidden', card.dataset.cat !== cat);
   });
-}
-
-/* ─── CART ─── */
-function addToCart(id) {
-  const product = PRODUCTS.find(p => p.id===id);
-  if(!product) return;
-  const existing = cart.find(i => i.id===id);
-  if(existing) existing.qty++;
-  else cart.push({...product, qty:1});
-  renderCart();
-  showToast(`${product.name} added to cart`);
-}
-function removeFromCart(id) {
-  cart = cart.filter(i => i.id!==id);
-  renderCart();
-}
-function changeQty(id, delta) {
-  const item = cart.find(i => i.id===id);
-  if(!item) return;
-  item.qty += delta;
-  if(item.qty <= 0) removeFromCart(id);
-  else renderCart();
-}
-function renderCart() {
-  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
-  const count = cart.reduce((s,i)=>s+i.qty,0);
-  // count badge
-  const countEl = document.getElementById('cart-count');
-  countEl.textContent = count;
-  countEl.classList.toggle('show', count>0);
-  // items
-  const itemsEl = document.getElementById('cart-items');
-  const footerEl = document.getElementById('cart-footer');
-  if(cart.length===0) {
-    itemsEl.innerHTML='<div class="cart-empty">Your cart is empty</div>';
-    footerEl.style.display='none';
-    return;
-  }
-  footerEl.style.display='block';
-  document.getElementById('cart-total').textContent = `S$${total.toFixed(2)}`;
-  itemsEl.innerHTML = cart.map(item=>`
-    <div class="cart-item">
-      <div class="cart-item-img">${item.icon}</div>
-      <div class="cart-item-info">
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">S$${item.price.toFixed(2)}</div>
-        <div class="cart-item-qty">
-          <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
-          <span class="qty-num">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
-        </div>
-      </div>
-      <button class="cart-remove" onclick="removeFromCart('${item.id}')">✕</button>
-    </div>`).join('');
-}
-function toggleCart() {
-  cartOpen = !cartOpen;
-  document.getElementById('cart-overlay').classList.toggle('open', cartOpen);
-  document.getElementById('cart-drawer').classList.toggle('open', cartOpen);
-}
-function checkout() {
-  showToast('Checkout coming soon! Connect Stripe or Shopify to your repo.');
-  toggleCart();
 }
 
 /* ─── MOBILE MENU ─── */
@@ -1277,21 +1194,29 @@ function renderArticles() {
     </div>`).join('');
 }
 
-/* ─── RENDER PRODUCTS ─── */
+/* ─── RENDER PRODUCTS (AFFILIATE) ─── */
 function renderProducts() {
+  const ttIcon = `<svg class="tt-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>`;
   document.getElementById('products-grid').innerHTML = PRODUCTS.map(p=>`
     <div class="product-card" data-cat="${p.cat}">
       <div class="product-img" style="background:${p.imgBg}">
-        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+        ${p.badge ? `<span class="product-badge"${p.isTikTok ? ' style="background:#fe2c55"' : ''}>${p.badge}</span>` : ''}
         <span style="font-size:3.2rem">${p.icon}</span>
       </div>
       <div class="product-body">
         <div class="product-cat">${p.catLabel}</div>
         <div class="product-name">${p.name}</div>
         <div class="product-desc">${p.desc}</div>
+        <div class="retailer-tag">
+          <span class="retailer-dot" style="background:${p.retailerColor}"></span>
+          ${p.retailer}
+        </div>
         <div class="product-footer">
-          <div class="product-price">S$${p.price.toFixed(2)}</div>
-          <button class="add-cart-btn" onclick="addToCart('${p.id}')" title="Add to cart">+</button>
+          ${p.price ? `<div class="product-price">${p.price}</div>` : '<div></div>'}
+          ${p.isTikTok
+            ? `<a class="affil-btn-tiktok" href="${p.affiliateUrl}" target="_blank" rel="noopener sponsored">${ttIcon} TikTok Shop ↗</a>`
+            : `<a class="affil-btn" href="${p.affiliateUrl}" target="_blank" rel="noopener sponsored">View on ${p.retailer} ↗</a>`
+          }
         </div>
       </div>
     </div>`).join('');
