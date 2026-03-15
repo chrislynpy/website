@@ -618,7 +618,7 @@ footer {
 
 <!-- NAV -->
 <nav id="main-nav">
-  <a class="nav-logo" href="#" onclick="showPage('home');return false;">Chrislyn <em>Tang</em></a>
+  <a class="nav-logo" href="#" onclick="showPage('home');return false;"></a>
   <ul class="nav-center" id="nav-desktop">
     <li><button onclick="showPage('home')" id="nav-home" class="active">Home</button></li>
     <li><button onclick="showPage('articles')" id="nav-articles">Articles</button></li>
@@ -782,8 +782,8 @@ footer {
     <div class="write-cta">
       <div style="font-size:1.5rem">✍️</div>
       <div class="write-cta-text">
-        <strong>Want to publish a new article?</strong>
-        Add your markdown file to the <code style="background:var(--cream-dark);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.8rem">/articles</code> folder in your GitHub repo and it will appear here automatically.
+        <strong>Articles are brewing...</strong>
+        
       </div>
     </div>
 
@@ -894,69 +894,19 @@ footer {
 */
 
 const FALLBACK_ARTICLES = [
-  { id:'art1', cat:'business', catLabel:'Business Consulting', icon:'📊', thumbClass:'thumb-terra',
-    title:'Why Consumer Choice Models Beat Gut Instinct Every Time',
-    date:'May 2025', readTime:'6 min read',
-    body:`<p>When a global FMCG brand came to me convinced their packaging redesign would lift sales by 30%, the data told a very different story. Their marketing team had run focus groups, gathered enthusiastic feedback, and built a confident business case. But choice modelling — simulating how real shoppers trade off between competing options — revealed the redesign would likely cannibalise their premium SKU and yield a net share loss of 4%.</p><p>They launched anyway. Six months later, they were back asking why the numbers hadn't moved.</p><blockquote>The most dangerous thing in consumer research isn't bad data — it's confident people ignoring good data.</blockquote><h3>What choice modelling actually does</h3><p>Unlike surveys that ask "do you like this?", choice modelling forces respondents to make trade-offs under realistic constraints — budget, alternatives, shelf context. The output isn't preference scores; it's willingness-to-pay, price elasticity, and simulated market share under different scenarios.</p><h3>Applying this to revenue management</h3><p>The real value emerges when you connect these models to pricing decisions. How much can you raise price before volume drops materially? What's the optimal architecture for a portfolio of three pack sizes? Which customer segment is most at risk of switching to a competitor if you discontinue the entry-level SKU?</p>`
-  },
-  { id:'art2', cat:'business', catLabel:'Business Consulting', icon:'📈', thumbClass:'thumb-terra',
-    title:'Revenue Management in Uncertain Markets',
-    date:'Feb 2025', readTime:'5 min read',
-    body:`<p>Uncertainty is the default condition for any business operating in the current environment. Inflation spikes, supply chain disruptions, shifting consumer sentiment — the list of destabilising forces is long and growing.</p><h3>Building resilient revenue models</h3><p>The brands I've seen navigate uncertainty best share a common trait: they treat their pricing and portfolio strategy as a live system, not a once-a-year planning exercise. They run scenario models regularly and have pre-approved playbooks for price responses under different trigger conditions.</p><blockquote>Uncertainty doesn't remove the need for a plan — it raises the cost of not having one.</blockquote><h3>The role of real-time data</h3><p>Consumer panels, scan data, and digital engagement signals give modern revenue teams a level of visibility that simply didn't exist a decade ago. Machine learning models that update on weekly sell-through data can dramatically sharpen promotional effectiveness predictions.</p>`
-  },
-  { id:'art3', cat:'business', catLabel:'Business Consulting', icon:'🎯', thumbClass:'thumb-terra',
-    title:'Brand Communication That Drives Real Behaviour Change',
-    date:'Jan 2025', readTime:'4 min read',
-    body:`<p>Most brand communication is optimised for awareness or likeability — metrics that feel good to report. Fewer brands measure whether their communication actually changes what consumers do at the point of purchase.</p><h3>Linking brand equity to revenue outcomes</h3><p>The brands I've worked with that do this well build explicit linkages between brand health tracking data and sales models. They can quantify how a 5-point improvement in "brand considered for next purchase" translates to incremental volume lift.</p><blockquote>The best brand campaigns aren't the most creative — they're the most strategically precise about which behaviour they're trying to shift.</blockquote>`
-  },
-  { id:'art4', cat:'business', catLabel:'Business Consulting', icon:'🔍', thumbClass:'thumb-terra',
-    title:'Innovation Strategy: What the Data Actually Says About New Product Success',
-    date:'Dec 2024', readTime:'7 min read',
-    body:`<p>The failure rate for new product launches in FMCG is famously high — estimates range from 70 to 90% depending on how you define failure. The insight industry has spent decades trying to predict winners before launch, with mixed success.</p><h3>Lessons from a decade of innovation projects</h3><p>After working on innovation strategy across categories from beauty to beverages, a few patterns stand out. The products most likely to succeed aren't necessarily the most novel — they're the ones that solve a real unmet need with a formulation or format the category hasn't seen before.</p>`
-  },
   { id:'art5', cat:'garden', catLabel:'Gardening', icon:'🌿', thumbClass:'thumb-moss',
     title:'Building a Productive Balcony Garden in Singapore',
     date:'Apr 2025', readTime:'4 min read',
     body:`<p>Singapore's tropical climate is both a gift and a challenge for balcony gardeners. The year-round warmth means you can plant almost anything, almost any time. But the intense sun, humidity, and frequent afternoon storms require a more thoughtful approach than temperate-climate guides suggest.</p><h3>Start with the right containers</h3><p>Fabric grow bags have become my default — lightweight, encourage healthy root development through air pruning, and drain extremely well. I run three sizes: small 3-gallon bags for herbs, medium 7-gallon for chillies and compact tomatoes, and large 15-gallon bags for eggplant and a dwarf papaya.</p><blockquote>The best garden is the one you can actually maintain — not the most ambitious one you'll abandon in three months.</blockquote><h3>Soil and nutrition</h3><p>Commercial potting mixes are often too dense for tropical container growing. I blend my own: two parts potting mix, one part perlite, and a generous handful of slow-release fertiliser.</p>`
   },
-  { id:'art6', cat:'garden', catLabel:'Gardening', icon:'🌱', thumbClass:'thumb-moss',
-    title:'The Case for Growing Your Own Herbs in Southeast Asia',
-    date:'Mar 2025', readTime:'3 min read',
-    body:`<p>If you cook Southeast Asian food regularly — in Singapore, how could you not — the case for growing your own herbs is almost embarrassingly obvious once you start. Fresh laksa leaf, lemongrass, kaffir lime leaves, and pandan are ingredients that transform dishes and cost almost nothing to grow.</p><h3>The starter five</h3><p>Thai basil, lemongrass, kaffir lime, pandan, and chilli. Between these five you can handle aromatics for a staggering range of dishes. Lemongrass is particularly forgiving and grows aggressively in Singapore — one pot on a sunny balcony will produce more than most households can use.</p>`
-  },
-  { id:'art7', cat:'garden', catLabel:'Gardening', icon:'🪴', thumbClass:'thumb-moss',
-    title:'What Gardening Taught Me About Long-Term Strategy',
-    date:'Feb 2025', readTime:'5 min read',
-    body:`<p>I've been tending a garden seriously for about four years now, and I keep finding unexpected parallels between good gardening practice and sound business strategy. Both require patience with long feedback loops and a willingness to cut your losses on what isn't working.</p><h3>The compounding returns problem</h3><p>Soil health improves slowly and compoundingly. The patience required to invest in something with deferred payoff is exactly the discipline that separates good long-term business builders from those optimising purely for the current quarter.</p><blockquote>Gardening rewards the patient. So does building anything worth having.</blockquote><h3>Knowing when to cut</h3><p>Every experienced gardener has learned the hard way that holding onto a struggling plant too long costs more than it saves. The space and attention that underperforming plant absorbs could be nourishing something productive.</p>`
-  },
   { id:'art8', cat:'garden', catLabel:'Gardening', icon:'🌸', thumbClass:'thumb-moss',
     title:'Composting in a HDB: A Practical Guide',
     date:'Nov 2024', readTime:'4 min read',
     body:`<p>Composting in a Singapore HDB flat sounds heroic or impractical depending on who you ask. In practice, with the right system and a bit of routine, it's neither. I've been running a small composting operation on my balcony for two years.</p><h3>Bokashi, not hot compost</h3><p>Hot composting requires volume and open space most of us don't have. Bokashi fermentation works in a sealed bucket, handles all food scraps including meat and dairy, and produces a concentrated liquid fertiliser as a byproduct. The process takes about two weeks of fermentation — it sounds fiddly but becomes completely routine.</p>`
-  },
-  { id:'art9', cat:'tech', catLabel:'Technology', icon:'⚡', thumbClass:'thumb-slate',
-    title:'What Marketers Get Wrong About AI-Powered Analytics',
-    date:'Mar 2025', readTime:'5 min read',
-    body:`<p>The marketing world has developed an almost religious enthusiasm for AI-powered analytics. Platform vendors promise predictive insight at the push of a button; a new generation of tools claims to replace the analyst with an algorithm.</p><h3>The question matters more than the model</h3><p>The most common mistake I see is treating AI as a source of questions rather than a tool for answering them. A model trained on historical data tells you what predicted outcomes in the past — not whether those patterns will hold in a structurally shifted market.</p><blockquote>AI amplifies the quality of your thinking. If your inputs are shallow, your outputs will be confidently shallow.</blockquote><h3>Where AI genuinely helps</h3><p>Segmentation at scale, anomaly detection in large datasets, rapid iteration of demand forecasting models, and natural language interfaces for non-technical stakeholders to query data directly.</p>`
-  },
-  { id:'art10', cat:'tech', catLabel:'Technology', icon:'🔧', thumbClass:'thumb-slate',
-    title:'Building a Personal Knowledge Base That Actually Works',
-    date:'Feb 2025', readTime:'4 min read',
-    body:`<p>I've tried most of the popular knowledge management tools — Notion, Obsidian, Roam, Bear, plain text files. What I've landed on is less about the specific tool and more about a set of principles I apply consistently.</p><h3>Capture before you curate</h3><p>The biggest failure mode is over-engineering the inbox. Spending twenty minutes deciding how to tag and file a fleeting insight kills the habit of capturing at all. The practice that works: capture quickly with minimal structure, curate in a weekly review session.</p>`
-  },
-  { id:'art11', cat:'tech', catLabel:'Technology', icon:'📱', thumbClass:'thumb-slate',
-    title:'The Tools I Actually Use (and Have Used for More Than a Year)',
-    date:'Jan 2025', readTime:'3 min read',
-    body:`<p>Tech recommendation articles are everywhere, most written by people who've used a tool for three weeks. This is my attempt to only write about things I've used consistently for at least twelve months.</p><h3>Analytics and data work</h3><p>Python remains my primary language, with pandas, scikit-learn, and statsmodels doing the heavy lifting. I use VS Code with GitHub Copilot — genuinely improved my workflow for boilerplate data cleaning code. Observable notebooks have replaced Jupyter for exploratory work I want to share.</p>`
-  },
-  { id:'art12', cat:'tech', catLabel:'Technology', icon:'🤖', thumbClass:'thumb-slate',
-    title:'How I Integrated ML Into a Traditional Market Research Workflow',
-    date:'Dec 2024', readTime:'6 min read',
-    body:`<p>Market research has historically operated in a slow cadence — design the study, field the survey, analyse the data, present the findings, three to four weeks later. ML integration creates opportunities to augment it with faster, more granular insight.</p><h3>Text analysis at scale</h3><p>The most useful application has been NLP-based analysis of open-ended survey responses. Transformer-based models fine-tuned on category-specific data produce thematic coding at least as good as human coders — faster and fully reproducible.</p><blockquote>The most valuable thing ML has done for my research work is make it possible to ask questions that were previously too expensive to answer.</blockquote>`
   }
 ];
 
-const FEATURED_DEFAULT = ['art1','art5','art9','art2'];
+const FEATURED_DEFAULT = ['art5','art9'];
 
 let ARTICLES = [...FALLBACK_ARTICLES];
 
