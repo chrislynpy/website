@@ -779,7 +779,7 @@ footer {
     </div>
 
     <div class="write-cta">
-      <div style="font-size:1.5rem">✍️</div>
+      <div style="font-size:1.5rem"></div>
       <div class="write-cta-text">
     </div>
 
@@ -892,18 +892,7 @@ async function loadArticles() {
     const indexRes = await fetch('./articles/articles-index.json');
     const index = await indexRes.json();
     const articleFiles = {
-      'art1':  'business-consumer-choice-models',
-      'art2':  'business-revenue-management',
-      'art3':  'business-brand-communication',
-      'art4':  'business-innovation-strategy',
-      'art5':  'garden-balcony-singapore',
-      'art6':  'garden-herbs-southeast-asia',
-      'art7':  'garden-long-term-strategy',
-      'art8':  'garden-composting-hdb',
-      'art9':  'tech-ai-analytics',
-      'art10': 'tech-knowledge-base',
-      'art11': 'tech-tools-i-use',
-      'art12': 'tech-ml-market-research',
+      'art1':  'garden-balcony-singapore'
     };
     const fetches = index.order.map(id =>
       fetch(`./articles/${articleFiles[id]}.json`).then(r => r.json()).catch(() => null)
