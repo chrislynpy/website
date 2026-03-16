@@ -1,5 +1,6 @@
 
 <!DOCTYPE html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -8,10 +9,10 @@ body{background:#e8d8c8;margin:0;padding:0;height:100%;}
 
 
 
-.sc{position:relative;overflow:hidden;height:100vh;min-height:480px;}
+.sc{position:relative;overflow:hidden;height:100dvh;min-height:420px;}
 
 
-.tip{position:absolute;background:rgba(240,228,210,.95);border:1px solid #c0a888;border-radius:2px;padding:4px 10px;font-size:11px;font-family:'Lora',serif;font-style:italic;color:#5a3a20;pointer-events:none;white-space:nowrap;z-index:50;opacity:0;transition:opacity .2s;}
+.tip{position:absolute;background:rgba(240,228,210,.95);border:1px solid #c0a888;border-radius:2px;padding:4px 10px;font-size:clamp(11px,2vw,14px);font-family:'Lora',serif;font-style:italic;color:#5a3a20;pointer-events:none;white-space:nowrap;z-index:50;opacity:0;transition:opacity .2s;}
 .tip.on{opacity:1;}
 </style>
 </head><body>
@@ -32,7 +33,7 @@ function rsz(){
   W=r.width; H=r.height;
   cv.width=W*DPR; cv.height=H*DPR;
   cv.style.width=W+'px'; cv.style.height=H+'px';
-  cx.scale(DPR,DPR);
+  cx.setTransform(DPR,0,0,DPR,0,0);
 }
 
 // ── organic wind
@@ -583,6 +584,16 @@ function frame(ts){
   requestAnimationFrame(frame);
 }
 rsz(); requestAnimationFrame(frame);
+
+document.getElementById('sc').addEventListener('touchmove', e=>{
+  const touch=e.touches[0];
+  onHov({
+    clientX:touch.clientX,
+    clientY:touch.clientY
+  });
+});
+document.getElementById('sc').addEventListener('touchend', hideTip);
+
 window.addEventListener('resize',rsz);
 </script>
 </body></html>
