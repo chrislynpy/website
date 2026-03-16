@@ -1,0 +1,592 @@
+
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#e8d8c8;}
+#g{width:100%;border:1px solid #cfc0a8;border-radius:3px;overflow:hidden;display:flex;flex-direction:column;background:#e8d8c8;}
+.gh{background:rgba(232,216,200,.92);border-bottom:1px solid #cfc0a8;padding:11px 22px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(4px);}
+.gt{font-family:'Lora',serif;font-size:15px;color:#5a3a20;letter-spacing:.01em;}
+.gt em{font-style:italic;color:#6a7a3a;}
+.sc{position:relative;overflow:hidden;height:500px;}
+.ib{background:rgba(232,216,200,.9);border-top:1px solid #cfc0a8;padding:8px 22px;}
+.im{font-family:'Lora',serif;font-style:italic;font-size:12px;color:#7a5a38;letter-spacing:.02em;}
+.tip{position:absolute;background:rgba(240,228,210,.95);border:1px solid #c0a888;border-radius:2px;padding:4px 10px;font-size:11px;font-family:'Lora',serif;font-style:italic;color:#5a3a20;pointer-events:none;white-space:nowrap;z-index:50;opacity:0;transition:opacity .2s;}
+.tip.on{opacity:1;}
+</style>
+</head><body>
+<div id="g">
+  <div class="gh">
+    <div class="gt">Chrislyn's <em>garden</em> — Singapore</div>
+    <div style="font-size:10.5px;color:#a08060;font-family:'DM Sans',sans-serif;letter-spacing:.05em;">always growing</div>
+  </div>
+  <div class="sc" id="sc" onmousemove="onHov(event)" onmouseleave="hideTip()">
+    <canvas id="c" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+    <div class="tip" id="tip"></div>
+  </div>
+  <div class="ib"><div class="im" id="msg">a living garden — hover to explore</div></div>
+</div>
+<script>
+const cv=document.getElementById('c'),cx=cv.getContext('2d');
+let W=0,H=0,T=0;
+const DPR=Math.min(window.devicePixelRatio||1,2);
+
+function rsz(){
+  const r=document.getElementById('sc').getBoundingClientRect();
+  W=r.width; H=r.height;
+  cv.width=W*DPR; cv.height=H*DPR;
+  cv.style.width=W+'px'; cv.style.height=H+'px';
+  cx.scale(DPR,DPR);
+}
+
+// ── organic wind
+function w(ph,amp,fr,t){
+  return Math.sin(t*fr+ph)*amp
+        +Math.sin(t*fr*1.71+ph*1.33)*amp*.37
+        +Math.sin(t*fr*.61+ph*.82)*amp*.21;
+}
+
+// ── soft brush stroke: draw ellipse with feathered alpha
+function softBlob(x,y,rx,ry,col,a,ang=0){
+  cx.save();
+  cx.translate(x,y); cx.rotate(ang);
+  const g=cx.createRadialGradient(0,0,0,0,0,Math.max(rx,ry));
+  const [r,gr,b]=col;
+  g.addColorStop(0,`rgba(${r},${gr},${b},${a})`);
+  g.addColorStop(.6,`rgba(${r},${gr},${b},${a*.55})`);
+  g.addColorStop(1,`rgba(${r},${gr},${b},0)`);
+  cx.fillStyle=g;
+  cx.beginPath(); cx.ellipse(0,0,rx,ry,0,0,Math.PI*2); cx.fill();
+  cx.restore();
+}
+
+// painterly leaf: bezier filled with soft edge
+function paintLeaf(x,y,len,ang,wid,col,alpha){
+  const tx=x+Math.cos(ang)*len, ty=y+Math.sin(ang)*len;
+  const pa=ang+Math.PI/2;
+  const mx=x+Math.cos(ang)*len*.52, my=y+Math.sin(ang)*len*.52;
+  cx.save();
+  // soft shadow pass
+  cx.globalAlpha=alpha*.18;
+  cx.fillStyle=`rgba(80,60,20,1)`;
+  cx.beginPath();
+  cx.moveTo(x,y);
+  cx.quadraticCurveTo(mx+Math.cos(pa)*wid*1.05,my+Math.sin(pa)*wid*1.05,tx,ty);
+  cx.quadraticCurveTo(mx-Math.cos(pa)*wid*1.05,my-Math.sin(pa)*wid*1.05,x,y);
+  cx.fill();
+  // main fill
+  cx.globalAlpha=alpha;
+  cx.fillStyle=col;
+  cx.beginPath();
+  cx.moveTo(x,y);
+  cx.quadraticCurveTo(mx+Math.cos(pa)*wid,my+Math.sin(pa)*wid,tx,ty);
+  cx.quadraticCurveTo(mx-Math.cos(pa)*wid,my-Math.sin(pa)*wid,x,y);
+  cx.fill();
+  // lighter vein highlight
+  cx.globalAlpha=alpha*.22;
+  cx.strokeStyle='rgba(200,220,160,.8)';
+  cx.lineWidth=.6;
+  cx.beginPath(); cx.moveTo(x,y); cx.lineTo(tx,ty); cx.stroke();
+  cx.restore();
+}
+
+// ── BACKGROUND — warm sandy gradient, misty
+function drawBG(){
+  const g=cx.createRadialGradient(W*.3,H*.25,10,W*.5,H*.5,W*.85);
+  g.addColorStop(0,'#f0e0cc');
+  g.addColorStop(.4,'#e8d0b8');
+  g.addColorStop(.75,'#dcc4a8');
+  g.addColorStop(1,'#c8a888');
+  cx.fillStyle=g; cx.fillRect(0,0,W,H);
+  // warm light bloom top-left
+  softBlob(W*.08,H*.08,W*.35,H*.28,[252,235,200],.38);
+  // subtle grain overlay (light noise via small rects)
+  cx.save(); cx.globalAlpha=.03;
+  for(let i=0;i<900;i++){
+    const gx=(Math.random())*W, gy=(Math.random())*H;
+    cx.fillStyle=Math.random()>.5?'#fff':'#000';
+    cx.fillRect(gx,gy,1,1);
+  }
+  cx.restore();
+}
+
+// ── GROUND PLANE — perspective floor, sandy warm
+function drawGround(){
+  // far horizon blush
+  const gh=H*.52;
+  const hg=cx.createLinearGradient(0,gh,0,H);
+  hg.addColorStop(0,'rgba(210,185,158,.0)');
+  hg.addColorStop(.08,'rgba(205,178,148,.55)');
+  hg.addColorStop(.3,'rgba(195,165,132,.75)');
+  hg.addColorStop(1,'rgba(175,145,110,.9)');
+  cx.fillStyle=hg; cx.fillRect(0,gh,W,H);
+
+  // soft grass/ground blush at horizon
+  softBlob(W*.5,H*.6,W*.6,H*.07,[170,185,120],.18);
+}
+
+// ── LONG DIAGONAL SHADOWS on ground (like reference)
+function drawShadows(){
+  cx.save(); cx.globalAlpha=.13;
+  // soft angled stripes — warm shadows cast by unseen trellis/fence
+  const shadowCol='rgba(180,145,100,1)';
+  cx.fillStyle=shadowCol;
+  const ox=H*.8, ow=22; // origin x offset, width
+  for(let i=0;i<9;i++){
+    const sx=W*.12+i*(W*.088), thick=ow*.9+Math.sin(i*.7)*4;
+    cx.beginPath();
+    cx.moveTo(sx-thick,H*.52);
+    cx.lineTo(sx+thick,H*.52);
+    cx.lineTo(sx+ox+thick*2.5,H);
+    cx.lineTo(sx+ox-thick*.8,H);
+    cx.closePath(); cx.fill();
+  }
+  cx.restore();
+}
+
+// ── LIGHT BLOOM (soft warm glow in mid-right, like reference tree light)
+function drawBloom(){
+  softBlob(W*.72,H*.38,W*.14,H*.22,[255,240,190],.22);
+  softBlob(W*.72,H*.38,W*.06,H*.1,[255,250,220],.18);
+}
+
+// ── WORMS in soil — subtle, show only near compost
+const WORMS=Array.from({length:5},(_,i)=>({
+  x:W*.055+(i*37)%80, y:H*.78+(i*23)%40, ph:i*1.4, spd:.28+i*.04, segs:8+i%4
+}));
+function drawWorms(){
+  WORMS.forEach(wr=>{
+    const bx=wr.x+w(wr.ph,6,wr.spd*.3,T);
+    cx.save(); cx.globalAlpha=.55;
+    for(let s=0;s<wr.segs;s++){
+      const sf=s/wr.segs;
+      const sx=bx+s*(wr.segs*2.2)+w(wr.ph+s*.45,3.5,1.1,T)*sf;
+      const sy=wr.y+w(wr.ph+s*.6,2.5,.85,T)*sf;
+      const sr=2.1-s*.06;
+      cx.fillStyle=s%2===0?'#b87040':'#a06030';
+      cx.globalAlpha=.48-sf*.12;
+      cx.beginPath(); cx.ellipse(sx,sy,sr,sr*.8,0,0,Math.PI*2); cx.fill();
+    }
+    // head
+    cx.fillStyle='#c8804a'; cx.globalAlpha=.58;
+    cx.beginPath(); cx.ellipse(bx,wr.y,2.8,2.2,0,0,Math.PI*2); cx.fill();
+    cx.restore();
+  });
+  cx.globalAlpha=1;
+}
+
+// ── CENTIPEDES — very subtle in lower ground
+const CENTI=Array.from({length:2},(_,i)=>({
+  x:W*.1+(i*180),y:H*.82+(i*28),ph:i*2.2,spd:.3+i*.06,dir:i%2===0?1:-1
+}));
+function drawCentipedes(){
+  CENTI.forEach(cp=>{
+    const bx=cp.x+Math.sin(T*cp.spd+cp.ph)*18*cp.dir;
+    cx.save();
+    const segs=12;
+    for(let s=0;s<segs;s++){
+      const sf=s/segs;
+      const sx=bx+s*7*cp.dir+w(cp.ph+s*.5,2.5,1.3,T)*sf;
+      const sy=cp.y+Math.sin(s*.65+T*cp.spd*2)*2;
+      cx.fillStyle=s%2===0?'rgba(120,65,20,.52)':'rgba(100,50,16,.48)';
+      cx.globalAlpha=.5; cx.beginPath(); cx.ellipse(sx,sy,3.8,2.2,0,0,Math.PI*2); cx.fill();
+      if(s<segs-1){
+        const lp=T*cp.spd*2.2+s*.75;
+        cx.strokeStyle='rgba(100,50,15,.32)'; cx.lineWidth=.6; cx.globalAlpha=.38;
+        cx.beginPath(); cx.moveTo(sx,sy); cx.lineTo(sx-cp.dir*2+Math.cos(lp)*4,sy-4); cx.stroke();
+        cx.beginPath(); cx.moveTo(sx,sy); cx.lineTo(sx-cp.dir*2+Math.cos(lp+Math.PI)*4,sy+4); cx.stroke();
+      }
+    }
+    cx.fillStyle='rgba(145,75,25,.6)'; cx.globalAlpha=.62;
+    cx.beginPath(); cx.ellipse(bx,cp.y,4.5,3,0,0,Math.PI*2); cx.fill();
+    cx.restore();
+  });
+  cx.globalAlpha=1;
+}
+
+// ── COMPOST BIN — understated wooden box
+function drawCompost(){
+  const bx=W*.03, by=H*.64, bw=W*.07, bh=H*.16;
+  cx.save();
+  // shadow
+  cx.globalAlpha=.1; cx.fillStyle='rgba(100,60,20,1)';
+  cx.beginPath(); cx.ellipse(bx+bw*.5,by+bh+4,bw*.55,6,0,0,Math.PI*2); cx.fill();
+  // body
+  cx.globalAlpha=.72; cx.fillStyle='#8a6030';
+  cx.beginPath(); cx.roundRect(bx,by,bw,bh,2); cx.fill();
+  // planks
+  cx.strokeStyle='rgba(60,35,10,.22)'; cx.lineWidth=.7;
+  for(let s=1;s<4;s++){cx.beginPath();cx.moveTo(bx,by+s*bh/4);cx.lineTo(bx+bw,by+s*bh/4);cx.stroke();}
+  // rim
+  cx.fillStyle='#a07840'; cx.globalAlpha=.55;
+  cx.beginPath(); cx.roundRect(bx-1,by-4,bw+2,7,1); cx.fill();
+  // inner dark soil
+  cx.fillStyle='#2e1808'; cx.globalAlpha=.6;
+  cx.beginPath(); cx.roundRect(bx+2,by+5,bw-4,bh-8,1); cx.fill();
+  // decomposing scraps — muted, organic
+  const scraps=[
+    {x:bx+bw*.25,y:by+bh*.3,type:'banana'},
+    {x:bx+bw*.65,y:by+bh*.25,type:'leaf'},
+    {x:bx+bw*.45,y:by+bh*.6,type:'orange'},
+    {x:bx+bw*.2,y:by+bh*.65,type:'grounds'},
+    {x:bx+bw*.72,y:by+bh*.65,type:'shell'},
+  ];
+  scraps.forEach(sc=>{
+    const decay=.5+.5*Math.sin(T*.25+sc.x);
+    cx.save(); cx.translate(sc.x,sc.y);
+    cx.globalAlpha=.62;
+    if(sc.type==='banana'){
+      const col=`rgba(${160+20*(1-decay)},${110-50*decay},18,.8)`;
+      cx.strokeStyle=col; cx.lineWidth=2.8; cx.lineCap='round';
+      cx.beginPath(); cx.moveTo(-6,2); cx.quadraticCurveTo(0,-6,7,1); cx.stroke();
+    } else if(sc.type==='leaf'){
+      cx.fillStyle=`rgba(${80+30*(1-decay)},${100-40*decay},22,.7)`;
+      paintLeaf(-3,3,9,-1.1,3,cx.fillStyle,.55);
+    } else if(sc.type==='orange'){
+      cx.fillStyle=`rgba(${200-30*decay},${95-20*decay},18,.72)`;
+      cx.beginPath(); cx.arc(0,0,4.5,0,Math.PI*2); cx.fill();
+    } else if(sc.type==='grounds'){
+      cx.fillStyle=`rgba(45,22,8,.65)`;
+      cx.beginPath(); cx.ellipse(0,0,5.5,3,.2,0,Math.PI*2); cx.fill();
+    } else if(sc.type==='shell'){
+      cx.strokeStyle='rgba(185,175,150,.55)'; cx.lineWidth=1.4;
+      cx.beginPath(); cx.arc(0,0,4,.1,Math.PI-.1); cx.stroke();
+    }
+    // mould
+    if(decay>.55){
+      cx.globalAlpha=(decay-.55)*.5;
+      for(let m=0;m<3;m++){
+        cx.fillStyle='rgba(160,185,140,.45)';
+        cx.beginPath(); cx.arc((m-1)*3,w(sc.x+m,1.2,.4,T),1.4,0,Math.PI*2); cx.fill();
+      }
+    }
+    cx.restore();
+  });
+  // label — very quiet
+  cx.save(); cx.globalAlpha=.35; cx.fillStyle='#c4a878';
+  cx.font='6.5px DM Sans'; cx.letterSpacing='.05em';
+  cx.fillText('COMPOST',bx+2,by+bh+13); cx.restore();
+}
+
+// ══════════════════════════
+// PLANTS — painterly, muted
+// ══════════════════════════
+
+// ── KANG KONG — feathery, sparse, left-centre
+function drawKangkong(){
+  const px=W*.19, py=H*.68;
+  const sw=w(1,3.5,.9,T);
+  cx.save();
+  [[-28,-58],[-14,-70],[-2,-76],[12,-68],[24,-56],[-36,-44],[32,-50]].forEach(([ox,oy],i)=>{
+    const ww=w(i*.68+1,3.2,1.0,T);
+    const lx=px+ox+ww*1.2, ly=py+oy;
+    // stem — hairline, muted sage
+    cx.globalAlpha=.4; cx.strokeStyle='#607a38'; cx.lineWidth=1.4;
+    cx.beginPath(); cx.moveTo(px,py);
+    cx.quadraticCurveTo(px+ox*.42+ww*.6,py+oy*.55,lx,ly); cx.stroke();
+    // leaf
+    const r=10+i%4*3, la=Math.atan2(oy,ox)-Math.PI*.5;
+    const lcols=['rgba(88,125,55,.62)','rgba(105,145,62,.58)','rgba(75,110,45,.65)','rgba(95,135,52,.6)'];
+    paintLeaf(lx,ly,r*1.9,la,r*.38,lcols[i%4],.62);
+  });
+  cx.restore(); cx.globalAlpha=1;
+  // soft ground shadow
+  softBlob(px,py+4,42,8,[140,115,75],.12);
+}
+
+// ── CHILLI — delicate, mid-left
+function drawChilli(){
+  const px=W*.33, py=H*.67;
+  [[-6,-98],[-18,-82],[7,-106],[-14,-68],[18,-86],[3,-74],[-2,-112]].forEach(([ox,oy],i)=>{
+    const ww=w(i*.8+2,2.8,1.1,T);
+    const lx=px+ox+ww*1.4, ly=py+oy;
+    cx.globalAlpha=.38; cx.strokeStyle='#506a28'; cx.lineWidth=1.6;
+    cx.beginPath(); cx.moveTo(px,py);
+    cx.quadraticCurveTo(px+ox*.38+ww*.5,py+oy*.52,lx,ly); cx.stroke();
+    // leaf pairs
+    [[1.1,-.6],[-1.1,-.55]].forEach(([_,oa])=>{
+      const la=Math.atan2(oy,ox)+oa*.85;
+      paintLeaf(lx+w(i*.4,1,.9,T),ly,14+i%3*2.5,la,4.5,
+        ['rgba(75,110,35,.55)','rgba(88,128,40,.5)','rgba(65,98,30,.58)','rgba(95,138,44,.52)'][i%4],.55);
+    });
+    // chilli fruit — long tapered, muted vermilion
+    const cw=w(i*.9+3,2.8,1.0,T);
+    cx.save(); cx.translate(lx+cw,ly); cx.rotate(w(i*1.1,6,.7,T)*.042);
+    // body — two-tone painterly
+    const fc=i%3===0?'rgba(188,42,28,.78)':i%3===1?'rgba(175,35,22,.72)':'rgba(200,50,30,.8)';
+    cx.fillStyle=fc; cx.globalAlpha=.8;
+    cx.beginPath();
+    cx.moveTo(0,0);
+    cx.bezierCurveTo(-3.5,5,-4.5,13,-2.5,20);
+    cx.bezierCurveTo(0,24,2.5,24,4.5,20);
+    cx.bezierCurveTo(6.5,13,3.5,5,0,0);
+    cx.fill();
+    // highlight pass
+    cx.fillStyle='rgba(240,160,140,.15)'; cx.beginPath();
+    cx.ellipse(-1,9,1.2,5,-.2,0,Math.PI*2); cx.fill();
+    cx.restore();
+  });
+  cx.globalAlpha=1;
+  softBlob(px,py+4,38,7,[140,115,75],.1);
+}
+
+// ── CHERRY TOMATO — climbing vine, centre
+function drawTomato(){
+  const px=W*.50, py=H*.68;
+  const mv=w(2,2.8,.7,T);
+  // main vine stem — thin, organic
+  cx.globalAlpha=.42; cx.strokeStyle='#506a28'; cx.lineWidth=3.2; cx.lineCap='round';
+  cx.beginPath(); cx.moveTo(px,py);
+  cx.bezierCurveTo(px-7+mv,py-50,px-3+mv*1.1,py-100,px+mv*.75,py-135); cx.stroke();
+  cx.lineWidth=2;
+  cx.beginPath(); cx.moveTo(px+mv*.75,py-135);
+  cx.bezierCurveTo(px+16+mv,py-152,px+25+mv,py-165,px+19+mv,py-182); cx.stroke();
+  // side branches
+  [[px,py-65,px-30,py-88],[px,py-95,px+32,py-115],[px+mv*.75,py-135,px-24,py-154],[px+19+mv,py-182,px+35+mv,py-198]].forEach(([x1,y1,x2,y2],i)=>{
+    const bs=w(i*1.1+1,2.2,1.0,T);
+    cx.lineWidth=1.6+i*.2; cx.globalAlpha=.36;
+    cx.beginPath(); cx.moveTo(x1,y1);
+    cx.quadraticCurveTo((x1+x2)/2+bs,(y1+y2)/2,x2+bs*1.3,y2); cx.stroke();
+  });
+  cx.globalAlpha=1;
+  // leaves
+  [[px-10,py-58],[px+18,py-80],[px-22,py-104],[px+27,py-124],[px-18,py-148],[px+29,py-172]].forEach(([lx,ly],i)=>{
+    const s2=w(i*.9+4,1.8,1.2,T);
+    paintLeaf(lx+s2,ly,17+i%3*2.5,i%2===0?-2.2:-1.05,.38*14,
+      ['rgba(75,108,40,.58)','rgba(88,125,42,.54)','rgba(65,95,32,.6)','rgba(95,135,46,.55)'][i%4],.58);
+  });
+  // tomato clusters — small, round, deep red
+  [[px-26,py-92],[px+29,py-112],[px-22,py-136],[px+26,py-156],[px-16,py-178],[px+32,py-196]].forEach(([tx,ty],i)=>{
+    const bs=w(i*1.3+5,2.2,.9,T);
+    [[0,0],[7,-4],[-6,-5],[3,-10]].slice(0,2+i%2+1).forEach(([dx,dy])=>{
+      cx.save(); cx.translate(tx+dx+bs,ty+dy);
+      // soft blob for each tomato
+      softBlob(0,0,7,7,[175,35,22],.82);
+      softBlob(-2,-2,3,3,[220,160,140],.2);
+      cx.restore();
+    });
+  });
+  softBlob(px,py+4,38,7,[140,115,75],.1);
+}
+
+// ── LEMON TREE — elegant, right side, like reference
+function drawLemon(){
+  const px=W*.70, py=H*.68;
+  const tv=w(5,1.4,.5,T);
+  // trunk — warm umber, tapered
+  cx.save();
+  cx.strokeStyle='#8a6030'; cx.lineCap='round';
+  cx.lineWidth=11; cx.globalAlpha=.65;
+  cx.beginPath(); cx.moveTo(px,py); cx.quadraticCurveTo(px-5+tv,py-80,px-3+tv*.55,py-155); cx.stroke();
+  cx.lineWidth=7; cx.strokeStyle='#a07840'; cx.globalAlpha=.38;
+  cx.beginPath(); cx.moveTo(px+2,py); cx.quadraticCurveTo(px-3+tv,py-80,px-1+tv*.55,py-155); cx.stroke();
+  cx.restore();
+  // root suggestion
+  softBlob(px,py+5,38,8,[120,90,50],.15);
+  // branch structure
+  const bb=[px-3+tv*.55,py-155];
+  [[...bb,px-48+tv,py-215],[...bb,px+42+tv,py-208],[...bb,px-8+tv,py-232],[px-8+tv*.4,py-108,px-54+tv,py-168],[px+7+tv*.4,py-118,px+46+tv,py-172]].forEach(([x1,y1,x2,y2],i)=>{
+    const bv=w(i*1.4+6,1.6,.6,T);
+    cx.strokeStyle='#8a6030'; cx.lineWidth=4.5+i*.3; cx.lineCap='round'; cx.globalAlpha=.52;
+    cx.beginPath(); cx.moveTo(x1,y1); cx.quadraticCurveTo((x1+x2)/2+bv*6,(y1+y2)/2,x2+bv,y2); cx.stroke();
+  });
+  // foliage — layered soft blobs, naturalistic greens
+  const FC=[
+    [px-42,py-232,40,30],[px+36,py-224,34,26],[px-8,py-248,38,28],
+    [px-60,py-188,30,22],[px+50,py-194,28,20],[px-18,py-216,44,32],
+    [px+22,py-240,30,24],[px-52,py-216,26,18],[px+46,py-218,24,18],[px,py-260,26,20]
+  ];
+  // back foliage — darker
+  FC.forEach(([fx,fy,rx,ry],i)=>{
+    const fv=w(i*.7+7,2.8,.55,T);
+    softBlob(fx+fv,fy,rx,ry,[60,90,30],.38+i%3*.06);
+  });
+  // front foliage — brighter, lighter
+  FC.forEach(([fx,fy,rx,ry],i)=>{
+    const fv=w(i*.9+2,2.2,.6,T);
+    softBlob(fx+fv,fy,rx*.72,ry*.72,[90,130,48],.42);
+  });
+  // light bloom through canopy (like reference)
+  softBlob(px+22,py-210,30,22,[255,245,195],.18);
+  softBlob(px+15,py-218,14,12,[255,250,220],.14);
+  // lemons
+  [[-42,py-228],[-28,py-250],[12,py-258],[44,py-242],[50,py-214],[-54,py-192],[58,py-196],[-18,py-275],[20,py-272],[-36,py-266]].forEach(([ox,oy],i)=>{
+    const lv=w(i*.6+8,2.2,.55,T);
+    const lx=px+ox+lv;
+    cx.save(); cx.translate(lx,oy); cx.rotate(w(i*.4,.12,.5,T));
+    // lemon body — soft ellipse with glow
+    softBlob(0,0,10,7,[215,185,50],.8);
+    softBlob(-3,-2,4.5,3,[240,230,160],.25);
+    // calyx nub
+    cx.fillStyle='rgba(70,100,30,.45)'; cx.globalAlpha=.45;
+    cx.beginPath(); cx.ellipse(8.5,0,3,2,.3,0,Math.PI*2); cx.fill();
+    // tiny leaf
+    paintLeaf(0,-7,10,-Math.PI*.5,3.2,'rgba(75,110,38,.55)',.5);
+    cx.restore();
+  });
+  cx.globalAlpha=1;
+}
+
+// ── PANDAN — architectural fan of leaves, right of lemon
+function drawPandan(){
+  const px=W*.84, py=H*.70;
+  [[-28,-65],[-14,-82],[0,-90],[16,-84],[30,-72],[40,-56],[-36,-50]].forEach(([ox,oy],i)=>{
+    const wv=w(i*.6+9,3.2,.9,T);
+    const la=Math.atan2(oy,ox), r=22+i%3*5;
+    paintLeaf(px+wv*.28,py,r*2.3,la,.18*r,
+      ['rgba(55,95,35,.58)','rgba(45,82,28,.64)','rgba(68,108,38,.55)','rgba(60,100,32,.6)'][i%4],.62);
+  });
+  softBlob(px,py+5,40,8,[140,115,75],.1);
+  cx.globalAlpha=1;
+}
+
+// ── SUNFLOWER — tall, elegant, far right
+function drawSunflower(){
+  const px=W*.93, py=H*.68;
+  const sv=w(11,3.8,.55,T);
+  // stem
+  cx.globalAlpha=.5; cx.strokeStyle='#5a7a22'; cx.lineWidth=3.5; cx.lineCap='round';
+  cx.beginPath(); cx.moveTo(px,py); cx.quadraticCurveTo(px+sv*.55,py-90,px+sv,py-185); cx.stroke();
+  // stem leaves
+  [[px+sv*.28,py-72,-2.5,18],[px+sv*.55,py-118,-1.1,20],[px+sv*.78,py-155,-2.9,16]].forEach(([lx,ly,la,r])=>{
+    paintLeaf(lx,ly,r,la,r*.28,'rgba(65,95,30,.48)',.5);
+  });
+  // petals — muted golden, painterly
+  const hx=px+sv, hy=py-185;
+  for(let p=0;p<13;p++){
+    const ra=(p/13)*Math.PI*2+T*.07;
+    const plen=18+Math.sin(T*.8+p)*.8;
+    const ppx=hx+Math.cos(ra)*plen, ppy=hy+Math.sin(ra)*plen;
+    softBlob(ppx,ppy,8,4.5,[205,165,35],.65,ra);
+  }
+  // disc — dark warm brown
+  softBlob(hx,hy,13,13,[55,32,12],.88);
+  softBlob(hx,hy,8,8,[75,42,15],.6);
+  softBlob(hx-2,hy-2,4,4,[100,60,20],.3);
+  softBlob(px,py+4,22,6,[140,115,75],.1);
+  cx.globalAlpha=1;
+}
+
+// ── BANANA PLANT — large tropical, left edge
+function drawBanana(){
+  const px=W*.07, py=H*.68;
+  // pseudo-stem
+  cx.globalAlpha=.52; cx.strokeStyle='#7a9a28'; cx.lineWidth=10; cx.lineCap='round';
+  cx.beginPath(); cx.moveTo(px,py); cx.lineTo(px-2,py-118); cx.stroke();
+  cx.strokeStyle='#9abb30'; cx.lineWidth=6; cx.globalAlpha=.3;
+  cx.beginPath(); cx.moveTo(px+3,py); cx.lineTo(px+1,py-118); cx.stroke();
+  // large leaves — long elliptical, slightly torn
+  [[-1.82,-2.5],[-0.78,-2.65],[-2.85,-1.95],[-0.22,-2.22]].forEach(([angOff,lf],i)=>{
+    const sv=w(i*.8+13,4.5,.6,T);
+    const baseAng=angOff+sv*.04, len=82+i*12;
+    cx.save(); cx.translate(px-1+sv*.28,py-112+i*7); cx.rotate(baseAng);
+    // main leaf fill
+    cx.fillStyle=['rgba(95,130,38,.60)','rgba(75,108,28,.65)','rgba(108,148,42,.58)','rgba(85,120,33,.62)'][i];
+    cx.globalAlpha=.65;
+    cx.beginPath(); cx.ellipse(len*.5,0,len*.5,13+i*.5,0,0,Math.PI*2); cx.fill();
+    // mid-rib
+    cx.strokeStyle='rgba(55,80,18,.38)'; cx.lineWidth=1.4; cx.globalAlpha=.4;
+    cx.beginPath(); cx.moveTo(0,0); cx.lineTo(len,0); cx.stroke();
+    // subtle laterals
+    cx.strokeStyle='rgba(55,80,18,.18)'; cx.lineWidth=.7; cx.globalAlpha=.25;
+    for(let v=1;v<7;v++){const vx=v*len/7; cx.beginPath(); cx.moveTo(vx,0); cx.lineTo(vx+7,11); cx.moveTo(vx,0); cx.lineTo(vx+7,-11); cx.stroke();}
+    cx.restore();
+  });
+  softBlob(px,py+5,38,8,[140,115,75],.12);
+  cx.globalAlpha=1;
+}
+
+// ── SMALL GROUND HERBS — a quiet patch of basil/mint, centre-left
+function drawHerbs(){
+  const px=W*.42, py=H*.72;
+  // low mounding plant — just leaves clustered near ground
+  [[-16,-22],[-7,-30],[4,-32],[14,-26],[20,-18],[-20,-14],[22,-12]].forEach(([ox,oy],i)=>{
+    const wv=w(i*.6+15,1.8,1.2,T);
+    const la=Math.atan2(oy,ox)-.2;
+    paintLeaf(px+ox+wv,py+oy,12+i%4*2.5,la,3.8,
+      ['rgba(68,108,42,.55)','rgba(80,122,48,.5)','rgba(58,95,36,.58)','rgba(88,130,52,.52)'][i%4],.55);
+  });
+  softBlob(px,py+3,32,6,[140,115,75],.09);
+  cx.globalAlpha=1;
+}
+
+// ── SCATTER GROUND FLOWERS
+const GFLOWERS=Array.from({length:14},(_,i)=>({x:(i*169.7+55)%(W*.9)+W*.05,ph:i*.72,tp:i%4,hu:i%5}));
+const GFCOLS=[[[210,175,50],.72],[[185,110,165],.65],[[215,215,140],.68],[[155,110,195],.62],[[145,185,80],.6]];
+function drawGroundFlowers(){
+  GFLOWERS.forEach(f=>{
+    const gy=H*.66+Math.sin(f.ph)*H*.04;
+    const sv=w(f.ph,1.8,.85,T);
+    cx.save(); cx.translate(f.x,gy); cx.rotate(sv*.02);
+    const sh=12+f.ph*2;
+    // stem — barely visible
+    cx.strokeStyle='rgba(80,100,40,.35)'; cx.lineWidth=1.1;
+    cx.beginPath(); cx.moveTo(0,0); cx.lineTo(sv*.25,-sh); cx.stroke();
+    cx.translate(sv*.25,-sh);
+    const [[r,gr,b],alpha]=GFCOLS[f.hu];
+    if(f.tp<2){
+      for(let a=0;a<5;a++){const ra=(a/5)*Math.PI*2; softBlob(Math.cos(ra)*5,Math.sin(ra)*5,4.5,2.8,[r,gr,b],alpha*.7,ra);}
+      softBlob(0,0,3.5,3.5,[220,190,80],.7);
+    } else if(f.tp===2){
+      for(let a=0;a<6;a++){const ra=(a/6)*Math.PI*2; softBlob(Math.cos(ra)*4.5,Math.sin(ra)*4.5,3.2,3.2,[r,gr,b],alpha*.65);}
+      softBlob(0,0,3,3,[240,210,100],.65);
+    } else {
+      softBlob(0,0,5.5,5.5,[r,gr,b],alpha*.75);
+      softBlob(0,0,2.5,2.5,[240,215,110],.7);
+    }
+    cx.restore();
+  });
+  cx.globalAlpha=1;
+}
+
+// ── TOOLTIP
+const ZONES=[
+  {l:.02,r:.14,n:'Banana plant',d:'Musa — great tropical shade'},
+  {l:.14,r:.27,n:'Kang kong',d:'Water spinach — grows fast'},
+  {l:.27,r:.42,n:'Chilli padi',d:'Capsicum — small, fiery, essential'},
+  {l:.40,r:.48,n:'Thai basil · Mint',d:'Fresh herbs close to the kitchen'},
+  {l:.44,r:.60,n:'Cherry tomato',d:'Sweet clusters on the vine'},
+  {l:.62,r:.80,n:'Lemon tree',d:'Citrus — fragrant and generous'},
+  {l:.78,r:.90,n:'Pandan',d:'Pandanus — the scent of Singapore'},
+  {l:.88,r:.99,n:'Sunflower',d:'Helianthus — following the light'},
+];
+function onHov(e){
+  const r=document.getElementById('sc').getBoundingClientRect();
+  const xf=(e.clientX-r.left)/r.width, y=e.clientY-r.top;
+  const z=ZONES.find(z=>xf>=z.l&&xf<z.r&&y>H*.25);
+  const t=document.getElementById('tip');
+  if(z){
+    t.textContent=z.n+' · '+z.d; t.style.left=(e.clientX-r.left+14)+'px';
+    t.style.top=(y-30)+'px'; t.classList.add('on');
+    document.getElementById('msg').textContent=z.n+' — '+z.d;
+  } else { t.classList.remove('on'); document.getElementById('msg').textContent='a living garden — hover to explore'; }
+}
+function hideTip(){ document.getElementById('tip').classList.remove('on'); }
+
+// ── FRAME LOOP
+function frame(ts){
+  T=ts*.001;
+  if(W!==document.getElementById('sc').offsetWidth) rsz();
+  cx.clearRect(0,0,W,H);
+  drawBG();
+  drawShadows();
+  drawGround();
+  drawBloom();
+  drawGroundFlowers();
+  drawCompost();
+  drawBanana();
+  drawKangkong();
+  drawChilli();
+  drawHerbs();
+  drawTomato();
+  drawLemon();
+  drawPandan();
+  drawSunflower();
+  drawWorms();
+  drawCentipedes();
+  requestAnimationFrame(frame);
+}
+rsz(); requestAnimationFrame(frame);
+window.addEventListener('resize',rsz);
+</script>
+</body></html>
