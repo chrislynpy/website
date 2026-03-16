@@ -1,30 +1,15 @@
 
 <!DOCTYPE html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400&display=swap');
 *{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;}
-body{background:#e8d8c8;margin:0;padding:0;}
-#g{
-  width:100%;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#e8d8c8;
-}
+body{background:#e8d8c8;margin:0;padding:0;height:100%;}
+#g{width:100%;overflow:hidden;display:flex;flex-direction:column;background:#e8d8c8;}
 
 
 
-.sc{
-  position:relative;
-  width:100%;
-  max-width:1600px;
-  height:100vh;
-  max-height:900px;
-  min-height:420px;
-  overflow:hidden;
-}
+.sc{position:relative;overflow:hidden;height:100vh;min-height:480px;}
 
 
 .tip{position:absolute;background:rgba(240,228,210,.95);border:1px solid #c0a888;border-radius:2px;padding:4px 10px;font-size:11px;font-family:'Lora',serif;font-style:italic;color:#5a3a20;pointer-events:none;white-space:nowrap;z-index:50;opacity:0;transition:opacity .2s;}
@@ -41,14 +26,30 @@ body{background:#e8d8c8;margin:0;padding:0;}
 <script>
 const cv=document.getElementById('c'),cx=cv.getContext('2d');
 let W=0,H=0,T=0;
-const DPR=Math.min(window.devicePixelRatio || 1, 1.5);
+let SCALE=1,OFFSETX=0,OFFSETY=0;
+const DPR=Math.min(window.devicePixelRatio||1,2);
 
 function rsz(){
-  const r=document.getElementById('sc').getBoundingClientRect();
-  W=r.width; H=r.height;
-  cv.width=W*DPR; cv.height=H*DPR;
-  cv.style.width=W+'px'; cv.style.height=H+'px';
-  cx.scale(DPR,DPR);
+  const sc=document.getElementById('sc');
+  const r=sc.getBoundingClientRect();
+
+  W=r.width;
+  H=r.height;
+
+  cv.width=W*DPR;
+  cv.height=H*DPR;
+
+  cv.style.width=W+'px';
+  cv.style.height=H+'px';
+
+  cx.setTransform(DPR,0,0,DPR,0,0);
+
+  const baseW=1600;
+  const baseH=900;
+
+  SCALE=Math.min(W/baseW,H/baseH);
+  OFFSETX=(W-baseW*SCALE)/2;
+  OFFSETY=(H-baseH*SCALE)/2;
 }
 
 // ── organic wind
@@ -581,6 +582,9 @@ function frame(ts){
   const sc=document.getElementById('sc');
   if(W!==sc.offsetWidth || H!==sc.offsetHeight) rsz();
   cx.clearRect(0,0,W,H);
+  cx.save();
+  cx.translate(OFFSETX,OFFSETY);
+  cx.scale(SCALE,SCALE);
   drawBG();
   drawShadows();
   drawGround();
@@ -597,9 +601,11 @@ function frame(ts){
   drawSunflower();
   drawWorms();
   drawCentipedes();
+  cx.restore();
   requestAnimationFrame(frame);
 }
-rsz(); requestAnimationFrame(frame);
+rsz(); cx.restore();
+  requestAnimationFrame(frame);
 window.addEventListener('resize',rsz);
 </script>
 </body></html>
